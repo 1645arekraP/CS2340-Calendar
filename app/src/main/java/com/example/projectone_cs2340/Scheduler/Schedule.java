@@ -1,8 +1,15 @@
 package com.example.projectone_cs2340.Scheduler;
 
+import android.os.Environment;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,17 +33,18 @@ public class Schedule {
 
     private void readFile() {
         try {
-            File file = new File(filePath);
+            File file = new File("/data/test.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNext()) {
-                //events.add(Event.stringToEvent(scanner.nextLine()));
                 System.out.println(scanner.nextLine());
             }
-
             scanner.close();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Failed to read file::" + e);
         }
     }
 }
