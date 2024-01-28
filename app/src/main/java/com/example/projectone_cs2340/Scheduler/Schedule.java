@@ -33,16 +33,23 @@ public class Schedule {
 
     private void readFile() {
         try {
-            File file = new File("/data/test.txt");
+            File file = new File(Environment.getDataDirectory() + "/data/com.example.projectone_cs2340/test.txt");
+            System.out.println(file);
             if (!file.exists()) {
+                System.out.println("Creating new file...");
                 file.createNewFile();
             }
             Scanner scanner = new Scanner(file);
 
+            System.out.print("Reading data... ");
             while (scanner.hasNext()) {
                 System.out.println(scanner.nextLine());
             }
+            System.out.println("Done");
+
+            System.out.print("Closing file...");
             scanner.close();
+            System.out.println("Done");
         } catch (Exception e) {
             System.out.println("Failed to read file::" + e);
         }
