@@ -2,6 +2,8 @@ package com.example.projectone_cs2340.Scheduler;
 
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,8 +48,8 @@ public class Lecture extends Event {
     }
 
     @Override
-    public void createView(View view) {
-
+    public Fragment createFragment() {
+        return null;
     }
 
     @Override

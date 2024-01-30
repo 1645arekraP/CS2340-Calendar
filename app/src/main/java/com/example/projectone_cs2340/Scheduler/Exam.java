@@ -11,7 +11,7 @@ public class Exam extends Event {
     }
 
     @Override
-    public void createView(View view) {
+    public void createFragment(View view) {
 
     }
 }
