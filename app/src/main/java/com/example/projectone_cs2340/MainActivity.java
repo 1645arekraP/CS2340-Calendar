@@ -2,20 +2,24 @@ package com.example.projectone_cs2340;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.example.projectone_cs2340.Scheduler.Schedule;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.xmlpull.v1.XmlPullParser;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton eventButton;
@@ -26,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.calendar_fragment);
         CalendarFragment cf = new CalendarFragment();
 
-        eventButton = findViewById(R.id.toDoButton);
+        eventButton = findViewById(R.id.todoButton);
         eventButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
@@ -34,21 +38,36 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.course)
-                        {
-                            showClassPopUp(R.layout.course_pop_up);
-                        }
-                        if(item.getItemId() == R.id.exam)
-                        {
-                            showExamPopUp(R.layout.exam_pop_up);
-                        }
-                        if(item.getItemId() == R.id.assignment)
-                        {
-                            showAssignmentPopUp(R.layout.assignment_pop_up);
-                        }
-                        if(item.getItemId() == R.id.toDoItem)
-                        {
-                            showToDoPopUp(R.layout.to_do_pop_up);
+                        if (item.getItemId() == R.id.one) {
+                            View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.fragment_pop_up, null);
+                            EditText eventName = (EditText) view.findViewById(R.id.name);
+                            EditText eventDate = (EditText) view.findViewById(R.id.time);
+                            EditText courseName = (EditText) view.findViewById(R.id.course);
+                            EditText location = (EditText) view.findViewById(R.id.location);
+                            EditText professorName = (EditText) view.findViewById(R.id.professor);
+                            EditText isCompleted = (EditText) view.findViewById(R.id.completed);
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage("Enter event details here:")
+                                    .setView(view)
+                                    .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String eName = eventName.getText().toString();
+                                            String eDate = eventDate.getText().toString();
+                                            String cName = courseName.getText().toString();
+                                            String loc = location.getText().toString();
+                                            String prof = professorName.getText().toString();
+                                            String complete = isCompleted.getText().toString();
+
+                                            Toast myToast = Toast.makeText(MainActivity.this, "Hello toast!", Toast.LENGTH_SHORT);
+                                            myToast.show();
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", null)
+                                    .setCancelable(false);
+                            AlertDialog alert = builder.create();
+                            alert.show();
                         }
                         return false;
                     }
@@ -58,114 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
-    }
-
-    private void showClassPopUp(int xmlFile)
-    {
-        View view = LayoutInflater.from(MainActivity.this).inflate(xmlFile, null);
-        EditText className = (EditText) view.findViewById(R.id.name);
-        EditText classDay = (EditText) view.findViewById(R.id.day);
-        EditText classTime = (EditText) view.findViewById(R.id.time);
-        EditText location = (EditText) view.findViewById(R.id.location);
-        EditText professorName = (EditText) view.findViewById(R.id.professor);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Enter event details here:")
-                .setView(view)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String cName = className.getText().toString();
-                        String eDate = classDay.getText().toString();
-                        String eTime = classTime.getText().toString();
-                        String loc = location.getText().toString();
-                        String prof = professorName.getText().toString();
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .setCancelable(false);
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void showExamPopUp(int xmlFile)
-    {
-        View view = LayoutInflater.from(MainActivity.this).inflate(xmlFile, null);
-        EditText className = (EditText) view.findViewById(R.id.name);
-        EditText examDay = (EditText) view.findViewById(R.id.day);
-        EditText examTime = (EditText) view.findViewById(R.id.time);
-        EditText location = (EditText) view.findViewById(R.id.location);
-        EditText professorName = (EditText) view.findViewById(R.id.professor);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Enter event details here:")
-                .setView(view)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String cName = className.getText().toString();
-                        String eDate = examDay.getText().toString();
-                        String eTime = examTime.getText().toString();
-                        String loc = location.getText().toString();
-                        String prof = professorName.getText().toString();
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .setCancelable(false);
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void showAssignmentPopUp(int xmlFile)
-    {
-        View view = LayoutInflater.from(MainActivity.this).inflate(xmlFile, null);
-        EditText className = (EditText) view.findViewById(R.id.name);
-        EditText dueDay = (EditText) view.findViewById(R.id.day);
-        EditText dueTime = (EditText) view.findViewById(R.id.time);
-        EditText notes = (EditText) view.findViewById(R.id.notes);
-        EditText professorName = (EditText) view.findViewById(R.id.professor);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Enter event details here:")
-                .setView(view)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String cName = className.getText().toString();
-                        String eDate = dueDay.getText().toString();
-                        String eTime = dueTime.getText().toString();
-                        String note = notes.getText().toString();
-                        String prof = professorName.getText().toString();
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .setCancelable(false);
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void showToDoPopUp(int xmlFile)
-    {
-        View view = LayoutInflater.from(MainActivity.this).inflate(xmlFile, null);
-        EditText className = (EditText) view.findViewById(R.id.name);
-        EditText dueDay = (EditText) view.findViewById(R.id.day);
-        EditText dueTime = (EditText) view.findViewById(R.id.time);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Enter event details here:")
-                .setView(view)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String cName = className.getText().toString();
-                        String eDate = dueDay.getText().toString();
-                        String eTime = dueTime.getText().toString();
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .setCancelable(false);
-        AlertDialog alert = builder.create();
-        alert.show();
     }
 
 }
