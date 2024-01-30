@@ -5,6 +5,7 @@ import android.view.View;
 import java.util.Date;
 
 public abstract class Event {
+    protected int ID;
     protected String name;
     protected Date date;
 

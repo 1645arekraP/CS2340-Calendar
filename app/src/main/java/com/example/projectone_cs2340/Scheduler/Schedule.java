@@ -3,37 +3,49 @@ package com.example.projectone_cs2340.Scheduler;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Schedule {
     private List<Event> events;
-    private String filePath;
+    private Set<Integer> IDs;
+    private String folderPath;
 
-    public Schedule(String filePath) {
+    public Schedule(String folderPath) {
         events = new ArrayList<>();
-        this.filePath = filePath;
+        IDs = new HashSet<>();
+        this.folderPath = folderPath;
         readFile();
     }
 
     public List<Event> getEvents() {
         return events;
     }
-    public String getFilePath() {
-        return filePath;
+    public String getFolderPath() {
+        return folderPath;
+    }
+
+    public void addEvent(Event data) {
+        events.add(data);
+        updateFile();
     }
 
     private void readFile() {
+        List<String> data = getDatabaseStrings();
+        for (String it : data) {
+            events.add(Event.stringToEvent(it));
+        }
+    }
+
+    private List<String> getDatabaseStrings() {
+        List<String> result = new ArrayList<>();
+
         try {
-            File file = new File(Environment.getDataDirectory() + "/data/com.example.projectone_cs2340/test.txt");
+            File file = new File(Environment.getDataDirectory() + folderPath + "test.txt");
             System.out.println(file);
             if (!file.exists()) {
                 System.out.println("Creating new file...");
@@ -41,17 +53,37 @@ public class Schedule {
             }
             Scanner scanner = new Scanner(file);
 
-            System.out.print("Reading data... ");
+            System.out.println("Reading data... ");
             while (scanner.hasNext()) {
-                System.out.println(scanner.nextLine());
+                result.add(scanner.nextLine());
             }
             System.out.println("Done");
 
-            System.out.print("Closing file...");
             scanner.close();
+        } catch (Exception e) {
+            System.out.println("Failed to get database::" + e);
+        }
+
+        return result;
+    }
+
+    private void updateFile() {
+        System.out.println("updateFile():");
+        try {
+            File file = new File(Environment.getDataDirectory() + folderPath + "test.txt");
+            if (!file.exists()) {
+                System.out.println("Creating new file...");
+                file.createNewFile();
+            }
+            FileWriter myWriter = new FileWriter(file);
+            System.out.print("Writing... ");
+            for (Event it : events) {
+                myWriter.write(it + "\n");
+            }
+            myWriter.close();
             System.out.println("Done");
         } catch (Exception e) {
-            System.out.println("Failed to read file::" + e);
+            System.out.println("Failed to update file::" + e);
         }
     }
 }

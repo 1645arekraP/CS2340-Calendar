@@ -9,6 +9,7 @@ public class Lecture extends Event {
 
     public Lecture(String data) {
         name = data.substring(0, data.indexOf(','));
+
     }
 
     @Override
@@ -18,6 +19,6 @@ public class Lecture extends Event {
 
     @Override
     public String toString() {
-        return "Lecture," + name + ',' + date.toString() + ',' + location + ',' + length;
+        return "Lecture," + name + ',';
     }
 }

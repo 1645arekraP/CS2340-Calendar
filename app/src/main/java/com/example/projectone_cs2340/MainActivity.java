@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.projectone_cs2340.Scheduler.Lecture;
 import com.example.projectone_cs2340.Scheduler.Schedule;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Schedule schedule = new Schedule("");
+        Schedule schedule = new Schedule("/data/com.example.projectone_cs2340/");
+        //schedule.addEvent(new Lecture("Bob,"));
+        System.out.println("");
     }
 }
