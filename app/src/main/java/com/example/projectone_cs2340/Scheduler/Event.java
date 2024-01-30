@@ -22,7 +22,7 @@ public abstract class Event {
         } else if (type.equals("Exam")) {
             return new Exam(data);
         } else if (type.equals("Task")) {
-            return new Task(data);
+            return new Task(data, "REMOVE LATER");
         }
         throw new IllegalArgumentException("Data type not supported");
     }
