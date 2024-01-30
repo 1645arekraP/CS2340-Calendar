@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/one"
-        android:title="todoList" />
+        android:id="@+id/course"
+        android:title="Add a new class" />
     <item
-        android:id="@+id/two"
-        android:title="List View" />
+        android:id="@+id/exam"
+        android:title="Add an exam due date" />
     <item
-        android:id="@+id/three"
-        android:title="Notifications" />
+        android:id="@+id/assignment"
+        android:title="Add a new Assignment" />
+    <item
+        android:id="@+id/toDoItem"
+        android:title="Add an new To-Do Task" />
 </menu>

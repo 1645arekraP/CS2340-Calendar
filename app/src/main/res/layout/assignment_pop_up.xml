@@ -8,34 +8,24 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Spinner
-        android:id="@+id/eventSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="63dp" />
-
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Event Name" />
+        android:hint="Course Name for assignment" />
+
+    <EditText
+        android:id="@+id/day"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Day of Due Date" />
+
 
     <EditText
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Event Time" />
-
-    <EditText
-        android:id="@+id/course"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Course Name"  />
-
-    <EditText
-        android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Location"  />
+        android:hint="Time for Due Date" />
 
     <EditText
         android:id="@+id/professor"
@@ -44,8 +34,8 @@
         android:hint="Professor Name"  />
 
     <EditText
-        android:id="@+id/completed"
+        android:id="@+id/notes"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Is Completed?" />
+        android:hint="Extra Notes about assignment"  />
 </LinearLayout>
