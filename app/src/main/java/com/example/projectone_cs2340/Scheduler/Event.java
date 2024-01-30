@@ -7,11 +7,8 @@ import androidx.fragment.app.Fragment;
 import java.time.LocalDate;
 
 public abstract class Event {
-    //protected int ID;
     protected String name;
     protected LocalDate date;
-
-    public abstract Fragment createFragment();
 
     public static Event stringToEvent(String data) {
         String type = data.substring(0, data.indexOf(','));

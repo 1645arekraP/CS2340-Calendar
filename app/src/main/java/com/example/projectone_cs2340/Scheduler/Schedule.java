@@ -12,12 +12,10 @@ import java.util.Set;
 
 public class Schedule {
     private List<Event> events;
-    private Set<Integer> IDs;
     private String folderPath;
 
     public Schedule(String folderPath) {
         events = new ArrayList<>();
-        IDs = new HashSet<>();
         this.folderPath = folderPath;
         readFile();
     }

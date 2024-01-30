@@ -22,34 +22,7 @@ public class Lecture extends Event {
         this.length = length;
     }
     public Lecture(String data) {
-        int start = 0;
-        int end = data.indexOf(',');
 
-        /*
-        ID = Integer.getInteger(data.substring(start, end));
-        start = end + 1;
-        end = data.indexOf(',', start);
-         */
-
-        name = data.substring(start, end);
-        start = end + 1;
-        end = data.indexOf(',', start);
-
-        //date = LocalDateTime.parse(data.substring(start, end));
-        location = data.substring(start, end);
-        start = end + 1;
-        end = data.indexOf(',', start);
-
-        instructor = data.substring(start, end);
-        start = end + 1;
-        end = data.indexOf(',', start);
-
-        length = Integer.getInteger(data.substring(start, end));
-    }
-
-    @Override
-    public Fragment createFragment() {
-        return null;
     }
 
     @Override
