@@ -2,12 +2,14 @@ package com.example.projectone_cs2340.Scheduler;
 
 import android.view.View;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public abstract class Event {
-    protected int ID;
+    //protected int ID;
     protected String name;
-    protected Date date;
+    protected LocalDate date;
 
     public abstract void createView(View view);
 
