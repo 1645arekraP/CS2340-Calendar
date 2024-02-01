@@ -1,6 +1,6 @@
 package com.example.projectone_cs2340.Scheduler;
 
-public class Date {
+public class Date implements Comparable {
     private long data = 0;
 
     public Date() {}
@@ -80,13 +80,16 @@ public class Date {
 
         return (int)setBits(data, 48, 56);
     }
+    public long getData() {
+        return data;
+    }
 
     private long getBits(int s, int n) {
         return ((data >> s) & ~((~(long)0) << n));
     }
     private long setBits(long bits, int s, int n) {
         long temp = getBits(s, n);
-        this.data = data & ~(((data >> s) & ~((~(long)0) << n)) << s);
+        this.data = data & ~(((data >> s) & ~(~0 << n)) << s);
         this.data = (this.data | (bits << s));
         return temp;
     }
@@ -107,5 +110,20 @@ public class Date {
         sb.append(getSeconds());
         return sb.toString();
     }
-}
 
+    @Override
+    public int compareTo(Object obj) {
+        if (obj == null) {
+            throw new NullPointerException();
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            throw new IllegalArgumentException();
+        }
+
+        long difference = (data - ((Date)obj).getData());
+        if (difference != 0) {
+            return (((difference >> 63) & 0x1) == 1) ? -1 : 1;
+        }
+        return (int)difference;
+    }
+}
