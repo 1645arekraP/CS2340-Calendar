@@ -40,12 +40,7 @@ public class EventsListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = layoutInflater.inflate(R.layout.todo_task, null);
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
-        TextView descriptionTextView = (TextView) convertView.findViewById(R.id.description);
-        Task t = (Task) events.get(position);
-        titleTextView.setText(t.getTitle());
-        descriptionTextView.setText(t.getDescription());
-        return convertView;
+        convertView = layoutInflater.inflate(events.get(position).getLayout(), null);
+        return events.get(position).getView(convertView, parent, events.get(position));
     }
 }

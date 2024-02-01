@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.projectone_cs2340.Scheduler.Assignment;
+import com.example.projectone_cs2340.Scheduler.Exam;
 import com.example.projectone_cs2340.Scheduler.Lecture;
 import com.example.projectone_cs2340.Scheduler.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,11 +44,6 @@ public class MainActivity extends AppCompatActivity {
         viewPageAdapter.addFragment(calendarListView, "Events");
         viewPageAdapter.addFragment(todoList, "Todo");
 
-        todoList.addToList(new Task("CS2340", "Finish project"));
-        todoList.addToList(new Task("MATH1554", "Study for test"));
-        todoList.addToList(new Task("PSYC1101", "Study for test," +
-                " review study guide"));
-
         viewPager.setAdapter(viewPageAdapter);
 
         eventButton = findViewById(R.id.todoButton);
@@ -58,19 +55,28 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId() == R.id.createTodoButton) {
-                            todoAlertDialog(item);
+                            todoAlertDialog(item); // User Story 4
                         }
-                        if (item.getItemId() == R.id.createEventButton) {
-                            eventAlertDialog(item);
+                        else if (item.getItemId() == R.id.createLectureButton) {
+                            lectureAlertDialog(item); // User Story 1
+                        }
+                        else if (item.getItemId() == R.id.createAssignmentButton) {
+                            assignmentAlertDialog(item); // User Story 2
+                        }
+                        else if (item.getItemId() == R.id.createExamButton) {
+                            examAlertDialog(item); // User Story 3
                         }
                         return false;
                     }
                 });
 
-                popupMenu .show();
+                popupMenu.show();
             }
         });
     }
+
+    // All of these methods below could probably be combined into a class
+    // Some attributes probably need to be renamed, I can do this later tonight
     private void todoAlertDialog(MenuItem item) {
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.task_popup, null);
         EditText todoName = (EditText) view.findViewById(R.id.name);
@@ -94,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void eventAlertDialog(MenuItem item) {
+    private void lectureAlertDialog(MenuItem item) {
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.event_popup, null);
-        EditText eventName = (EditText) view.findViewById(R.id.name);
-        EditText eventLocation = (EditText) view.findViewById(R.id.description);
-        EditText  eventType = (EditText) view.findViewById(R.id.type);
+        EditText courseName = (EditText) view.findViewById(R.id.name);
+        EditText courseInstructor = (EditText) view.findViewById(R.id.description);
+        EditText courseTime = (EditText) view.findViewById(R.id.type);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("Enter event details here:")
@@ -106,11 +112,63 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String title = eventName.getText().toString();
-                        String location = eventLocation.getText().toString();
-                        String type = eventType.getText().toString();
+                        String name = courseName.getText().toString();
+                        String instructor = courseInstructor.getText().toString();
+                        String time = courseTime.getText().toString();
 
-                        calendarListView.addToList(new Lecture(title, location));
+                        calendarListView.addToList(new Lecture(name, instructor, time));
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .setCancelable(false);
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void assignmentAlertDialog(MenuItem item) {
+        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.event_popup, null);
+        EditText courseName = (EditText) view.findViewById(R.id.name);
+        EditText courseInstructor = (EditText) view.findViewById(R.id.description);
+        EditText courseTime = (EditText) view.findViewById(R.id.type);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("Enter event details here:")
+                .setView(view)
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = courseName.getText().toString();
+                        String instructor = courseInstructor.getText().toString();
+                        String time = courseTime.getText().toString();
+
+                        calendarListView.addToList(new Assignment(name, instructor, time));
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .setCancelable(false);
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void examAlertDialog(MenuItem item) {
+        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.exam_popup, null);
+        EditText courseName = (EditText) view.findViewById(R.id.name);
+        EditText courseInstructor = (EditText) view.findViewById(R.id.description);
+        EditText courseTime = (EditText) view.findViewById(R.id.time);
+        EditText examDate = (EditText) view.findViewById(R.id.date);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("Enter event details here:")
+                .setView(view)
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = courseName.getText().toString();
+                        String instructor = courseInstructor.getText().toString();
+                        String time = courseTime.getText().toString();
+                        String date = examDate.getText().toString();
+
+                        calendarListView.addToList(new Exam(name, instructor, time, date));
                     }
                 })
                 .setNegativeButton("Cancel", null)

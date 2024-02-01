@@ -1,8 +1,12 @@
 package com.example.projectone_cs2340.Scheduler;
 
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.projectone_cs2340.R;
+
+import java.util.ArrayList;
 
 public class Task extends Event {
     private boolean completed;
@@ -28,6 +32,15 @@ public class Task extends Event {
     @Override
     public int getLayout() {
         return R.layout.todo_task;
+    }
+
+    @Override
+    public View getView(View convertView, ViewGroup parent, Event event) {
+        TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
+        TextView descriptionTextView = (TextView) convertView.findViewById(R.id.description);
+        titleTextView.setText(title);
+        descriptionTextView.setText(description);
+        return convertView;
     }
 
     public String getTitle() {

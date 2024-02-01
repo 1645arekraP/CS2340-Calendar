@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/createTodoButton"
-        android:title="@string/create_a_todo_item" />
+        android:title="@string/todoMenueText" />
     <item
-        android:id="@+id/createEventButton"
-        android:title="@string/create_a_new_event" />
+        android:id="@+id/createLectureButton"
+        android:title="@string/lectureMenueText" />
     <item
-        android:id="@+id/three"
-        android:title="Notifications" />
+        android:id="@+id/createAssignmentButton"
+        android:title="@string/assignmentMenueText" />
+    <item
+        android:id="@+id/createExamButton"
+        android:title="@string/examMenueText" />
 </menu>

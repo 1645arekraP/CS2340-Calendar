@@ -1,27 +1,27 @@
 package com.example.projectone_cs2340.Scheduler;
 
+import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.projectone_cs2340.R;
 
 public class Lecture extends Event {
     private String location;
     private String instructor;
     private String time;
-    private String days;
+    private int colorValue;
 
     public Lecture(String data) {
         name = data.substring(0, data.indexOf(','));
     }
 
-    public Lecture(String location, String instructor, String time, String days) {
+    public Lecture(String location, String instructor, String time) {
         this.location = location;
         this.instructor = instructor;
         this.time = time;
-        this.days = days;
-    }
-
-    public Lecture(String location, String instructor) {
-        this.location = location;
-        this.instructor = instructor;
+        colorValue = Color.parseColor("#ff6961");
     }
 
     @Override
@@ -31,7 +31,19 @@ public class Lecture extends Event {
 
     @Override
     public int getLayout() {
-        return 0;
+        return R.layout.lecture_item;
+    }
+
+    @Override
+    public View getView(View convertView, ViewGroup parent, Event event) {
+        TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
+        TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
+        TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
+        nameTextView.setText("Lecture: " + instructor);
+        instructorTextView.setText(location);
+        timeTextView.setText(time);
+        nameTextView.setTextColor(colorValue);
+        return convertView;
     }
 
     @Override
