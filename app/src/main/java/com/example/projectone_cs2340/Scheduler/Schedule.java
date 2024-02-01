@@ -11,13 +11,13 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Schedule {
-    private List<Event> events;
+    private List<Event> events = new ArrayList<>();
     private String folderPath;
 
+    public Schedule() {}
     public Schedule(String folderPath) {
-        events = new ArrayList<>();
         this.folderPath = folderPath;
-        readFile();
+        //readFile();
     }
 
     public List<Event> getEvents() {
@@ -27,6 +27,7 @@ public class Schedule {
         return folderPath;
     }
 
+    /*
     public void addEvent(Event data) {
         events.add(data);
         updateFile();
@@ -84,4 +85,5 @@ public class Schedule {
             System.out.println("Failed to update file::" + e);
         }
     }
+     */
 }
