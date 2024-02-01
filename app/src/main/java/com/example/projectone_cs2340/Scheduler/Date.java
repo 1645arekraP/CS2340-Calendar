@@ -40,42 +40,42 @@ public class Date implements Comparable {
 
     public int setYear(int data) {
         if (data > 32768 || data <= -32768) {
-            throw new IllegalArgumentException("Year too big: " + data);
+            throw new IllegalArgumentException("Year out of bounds: " + data);
         }
 
         return (int)setBits(data, 0, 16);
     }
     public int setMonth(int data) {
         if (data > 128 || data <= -128) {
-            throw new IllegalArgumentException("Month too big: " + data);
+            throw new IllegalArgumentException("Month out of bounds: " + data);
         }
 
         return (int)setBits(data, 16, 24);
     }
     public int setDay(int data) {
         if (data > 128 || data <= -128) {
-            throw new IllegalArgumentException("Day too big: " + data);
+            throw new IllegalArgumentException("Day out of bounds: " + data);
         }
 
         return (int)setBits(data, 24, 32);
     }
     public int setHour(int data) {
         if (data > 128 || data <= -128) {
-            throw new IllegalArgumentException("Hour too big: " + data);
+            throw new IllegalArgumentException("Hour out of bounds: " + data);
         }
 
         return (int)setBits(data, 32, 40);
     }
     public int setMinutes(int data) {
         if (data > 128 || data <= -128) {
-            throw new IllegalArgumentException("Minutes too big: " + data);
+            throw new IllegalArgumentException("Minutes out of bounds: " + data);
         }
 
         return (int)setBits(data, 40, 48);
     }
     public int setSeconds(int data) {
         if (data > 128 || data <= -128) {
-            throw new IllegalArgumentException("Seconds too big: " + data);
+            throw new IllegalArgumentException("Seconds out of bounds: " + data);
         }
 
         return (int)setBits(data, 48, 56);
@@ -96,34 +96,30 @@ public class Date implements Comparable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getYear());
-        sb.append("-");
-        sb.append(getMonth());
-        sb.append("-");
-        sb.append(getDay());
-        sb.append("::");
-        sb.append(getHour());
-        sb.append(":");
-        sb.append(getMinutes());
-        sb.append(":");
-        sb.append(getSeconds());
-        return sb.toString();
+        return String.format("%d-%02d-%02dT%02d:%02d:%02d", getYear(), getMonth(), getDay(), getHour(), getMinutes(), getSeconds());
     }
 
+    /*
+     * Does not properly represent magnitude of difference but does get "greater/less than" and "equal to" cases correct.
+     */
     @Override
     public int compareTo(Object obj) {
         if (obj == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("Cannot compare to null");
         }
         if (!this.getClass().equals(obj.getClass())) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Cannot compare objects not of the same type");
         }
 
-        long difference = (data - ((Date)obj).getData());
-        if (difference != 0) {
-            return (((difference >> 63) & 0x1) == 1) ? -1 : 1;
+        return (int)((data - ((Date)obj).getData()) >> 32);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        try {
+            return compareTo(obj) == 0;
+        } catch (Exception e) {
+            return false;
         }
-        return (int)difference;
     }
 }
