@@ -12,4 +12,9 @@ public class Assignment extends Event {
     public void createView(View view) {
 
     }
+
+    @Override
+    public int getLayout() {
+        return 0;
+    }
 }

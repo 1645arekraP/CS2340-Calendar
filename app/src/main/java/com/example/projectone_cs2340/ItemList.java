@@ -23,7 +23,6 @@ public class ItemList extends Fragment {
     private ListView list;
     private View view;
     private ArrayList<Event> events;
-    //private ArrayAdapter<Event> adapter;
     private EventsListAdapter adapter;
 
     public ItemList() {

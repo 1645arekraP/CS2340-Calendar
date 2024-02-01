@@ -14,4 +14,9 @@ public class Exam extends Event {
     public void createView(View view) {
 
     }
+
+    @Override
+    public int getLayout() {
+        return 0;
+    }
 }

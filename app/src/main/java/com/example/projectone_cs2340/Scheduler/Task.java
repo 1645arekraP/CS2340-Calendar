@@ -2,6 +2,8 @@ package com.example.projectone_cs2340.Scheduler;
 
 import android.view.View;
 
+import com.example.projectone_cs2340.R;
+
 public class Task extends Event {
     private boolean completed;
     private String title;
@@ -21,6 +23,11 @@ public class Task extends Event {
     @Override
     public void createView(View view) {
 
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.todo_task;
     }
 
     public String getTitle() {

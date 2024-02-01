@@ -4,5 +4,7 @@
         Welcome to the Class Scheduler App.\n What would you like to do</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_a_todo_item">Create a Todo item</string>
+    <string name="create_a_new_event">Create a new Event</string>
     <string-array name="eventOptions">Class, Exam, Assignment</string-array>
 </resources>

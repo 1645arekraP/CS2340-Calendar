@@ -10,6 +10,8 @@ public abstract class Event {
 
     public abstract void createView(View view);
 
+    public abstract int getLayout();
+
     public static Event stringToEvent(String data) {
         String type = data.substring(0, data.indexOf(','));
         if (type.equals("Lecture")) {
