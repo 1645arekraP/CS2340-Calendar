@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/course"
-        android:title="Add a new class" />
+        android:id="@+id/createTodoButton"
+        android:title="@string/todoMenueText" />
     <item
-        android:id="@+id/exam"
-        android:title="Add an exam due date" />
+        android:id="@+id/createLectureButton"
+        android:title="@string/lectureMenueText" />
     <item
-        android:id="@+id/assignment"
-        android:title="Add a new Assignment" />
+        android:id="@+id/createAssignmentButton"
+        android:title="@string/assignmentMenueText" />
     <item
-        android:id="@+id/toDoItem"
-        android:title="Add an new To-Do Task" />
+        android:id="@+id/createExamButton"
+        android:title="@string/examMenueText" />
 </menu>
