@@ -17,7 +17,7 @@ public class Lecture extends Event {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
         TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
-        nameTextView.setText("Lecture: " + name);
+        nameTextView.setText(name + "\nType: Lecture");
         instructorTextView.setText(extraInfo);
         timeTextView.setText(date.toString());
         nameTextView.setTextColor(colorValue);

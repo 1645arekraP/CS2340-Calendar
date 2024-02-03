@@ -12,8 +12,11 @@ import android.widget.ListView;
 
 import com.example.projectone_cs2340.R;
 import com.example.projectone_cs2340.Scheduler.Event;
+import com.example.projectone_cs2340.Scheduler.Task;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,5 +53,28 @@ public class EventsList extends Fragment {
 
     public void removeFromList(int position) {
         //adapter.removeEvent(position);
+    }
+
+
+    public void sortByNameASC() {
+        events.sort(Comparator.comparing(Event::getName));
+        adapter.notifyDataSetChanged();
+    }
+
+    public void sortByNameDESC() {
+        events.sort(Comparator.comparing(Event::getName));
+        Collections.reverse(events);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void sortByDateASC() {
+        events.sort(Comparator.comparing(Event::getDate));
+        adapter.notifyDataSetChanged();
+    }
+
+    public void sortByDateDESC() {
+        events.sort(Comparator.comparing(Event::getDate));
+        Collections.reverse(events);
+        adapter.notifyDataSetChanged();
     }
 }

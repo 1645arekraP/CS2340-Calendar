@@ -30,4 +30,14 @@ public abstract class Event {
         this.extraInfo = instructor;
         this.date = date;
     }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public Date getDate()
+    {
+        return date;
+    }
 }

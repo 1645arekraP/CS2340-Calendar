@@ -25,12 +25,10 @@ import androidx.appcompat.app.AlertDialog;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
-import java.util.Comparator;
-
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton eventButton;
     TodoList todoList;
-    EventsList calendarListView;
+    EventsList eventsList;
 
     ImageButton sortButton;
 
@@ -48,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         );
 
-        calendarListView = new EventsList();
+        eventsList = new EventsList();
         todoList = new TodoList();
 
 
-        viewPageAdapter.addFragment(calendarListView, "Events");
+        viewPageAdapter.addFragment(eventsList, "Events");
         viewPageAdapter.addFragment(todoList, "Todo");
 
         viewPager.setAdapter(viewPageAdapter);
@@ -101,12 +99,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.nameASCOption) {
                     todoList.sortByNameASC();
+                    eventsList.sortByNameASC();
                 } else if (item.getItemId() == R.id.nameDESCOption) {
                     todoList.sortByNameDESC();
+                    eventsList.sortByNameDESC();
                 } else if (item.getItemId() == R.id.dateASCOption) {
-                    todoList.sortByNameASC();
+                    eventsList.sortByDateASC();
                 } else if (item.getItemId() == R.id.dateDESCOption) {
-                    todoList.sortByNameASC();
+                    eventsList.sortByDateDESC();
                 }
                 return false;
             }
@@ -161,13 +161,13 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (type) {
                             case ("L"):
-                                calendarListView.addToList(new Lecture(name, instructor, new Date(date, time)));
+                                eventsList.addToList(new Lecture(name, instructor, new Date(date, time)));
                                 break;
                             case ("A"):
-                                calendarListView.addToList(new Assignment(name, instructor, new Date(date, time)));
+                                eventsList.addToList(new Assignment(name, instructor, new Date(date, time)));
                                 break;
                             case ("E"):
-                                calendarListView.addToList(new Exam(name, instructor, new Date(date, time)));
+                                eventsList.addToList(new Exam(name, instructor, new Date(date, time)));
                                 break;
                         }
                     }
