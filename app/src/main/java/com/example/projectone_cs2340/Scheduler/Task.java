@@ -20,39 +20,25 @@ import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
 
-public class Task extends Event {
-    private String title;
+public class Task {
+    private String name;
     private String description;
     private boolean completed;
 
-    //public Task(String data) {
-    //    String[] dataArray = data.split(",");
-    //    title = dataArray[1];
-    //    description = dataArray[2];
-    //    completed = Boolean.parseBoolean(dataArray[3]);
-    //}
-
-    public Task(String title, String description) {
-        this.title = title;
+    public Task(String name, String description) {
+        this.name = name;
         this.description = description;
         completed = false;
     }
 
-    @Override
-    public void createView(View view) {
-
-    }
-
-    @Override
     public int getLayout() {
         return R.layout.todo_task;
     }
 
-    @Override
     public View getView(View convertView, ViewGroup parent) {
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
         TextView descriptionTextView = (TextView) convertView.findViewById(R.id.description);
-        titleTextView.setText(title);
+        titleTextView.setText(name);
         descriptionTextView.setText(description);
         if (completed) {
             titleTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -66,19 +52,15 @@ public class Task extends Event {
         completed = !completed;
     }
 
-    public void updateText(String title, String description) {
-        this.title = title;
+    public void updateText(String name, String description) {
+        this.name = name;
         this.description = description;
     }
-
-    //public static String getTitle() {
-    //    return title;
-    //}
     public String getDescription() {
         return description;
     }
 
     public String getStringTitle() {
-        return title;
+        return name;
     }
 }

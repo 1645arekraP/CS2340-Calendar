@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     EventsList calendarListView;
 
     ImageButton sortButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         todoList = new TodoList();
 
 
-
         viewPageAdapter.addFragment(calendarListView, "Events");
         viewPageAdapter.addFragment(todoList, "Todo");
 
@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
                         if (item.getItemId() == R.id.createTodoButton) {
                             todoAlertDialog(item); // User Story 4
                         }
-                        else if (item.getItemId() == R.id.createLectureButton) {
-                            lectureAlertDialog(item); // User Story 1
+                        if (item.getItemId() == R.id.createLectureButton) {
+                            lectureAlertDialog(item, "L"); // User Story 1
                         }
-                        else if (item.getItemId() == R.id.createAssignmentButton) {
-                            assignmentAlertDialog(item); // User Story 2
+                        if (item.getItemId() == R.id.createAssignmentButton) {
+                            lectureAlertDialog(item, "A"); // User Story 2
                         }
-                        else if (item.getItemId() == R.id.createExamButton) {
-                            examAlertDialog(item); // User Story 3
+                        if (item.getItemId() == R.id.createExamButton) {
+                            lectureAlertDialog(item, "E"); // User Story 3
                         }
                         return false;
                     }
@@ -93,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void sortPopUpHelper(View v)
-    {
+    private void sortPopUpHelper(View v) {
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
         popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -102,14 +101,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.nameASCOption) {
                     todoList.sortByNameASC();
-                }
-                else if (item.getItemId() == R.id.nameDESCOption) {
+                } else if (item.getItemId() == R.id.nameDESCOption) {
                     todoList.sortByNameDESC();
-                }
-                else if (item.getItemId() == R.id.dateASCOption) {
+                } else if (item.getItemId() == R.id.dateASCOption) {
                     todoList.sortByNameASC();
-                }
-                else if (item.getItemId() == R.id.dateDESCOption) {
+                } else if (item.getItemId() == R.id.dateDESCOption) {
                     todoList.sortByNameASC();
                 }
                 return false;
@@ -145,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void lectureAlertDialog(MenuItem item) {
+    private void lectureAlertDialog(MenuItem item, String type) {
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.event_popup, null);
         EditText eventName = (EditText) view.findViewById(R.id.name);
         EditText eventDescription = (EditText) view.findViewById(R.id.description);
@@ -163,7 +159,17 @@ public class MainActivity extends AppCompatActivity {
                         String date = eventDate.getText().toString();
                         String time = eventTime.getText().toString();
 
-                        calendarListView.addToList(new Lecture(name, instructor, new Date(date, time)));
+                        switch (type) {
+                            case ("L"):
+                                calendarListView.addToList(new Lecture(name, instructor, new Date(date, time)));
+                                break;
+                            case ("A"):
+                                calendarListView.addToList(new Assignment(name, instructor, new Date(date, time)));
+                                break;
+                            case ("E"):
+                                calendarListView.addToList(new Exam(name, instructor, new Date(date, time)));
+                                break;
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -171,57 +177,4 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-    private void assignmentAlertDialog(MenuItem item) {
-        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.event_popup, null);
-        EditText courseName = (EditText) view.findViewById(R.id.name);
-        EditText courseInstructor = (EditText) view.findViewById(R.id.description);
-        EditText courseTime = (EditText) view.findViewById(R.id.time);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Enter event details here:")
-                .setView(view)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String name = courseName.getText().toString();
-                        String instructor = courseInstructor.getText().toString();
-                        String time = courseTime.getText().toString();
-
-                        calendarListView.addToList(new Assignment(name, instructor, time));
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .setCancelable(false);
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void examAlertDialog(MenuItem item) {
-        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.exam_popup, null);
-        EditText examName = (EditText) view.findViewById(R.id.name);
-        EditText examDate = (EditText) view.findViewById(R.id.date);
-        EditText examTime = (EditText) view.findViewById(R.id.time);
-        EditText examLocation = (EditText) view.findViewById(R.id.location);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Enter event details here:")
-                .setView(view)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String name = examName.getText().toString();
-                        String date = examDate.getText().toString();
-                        String time = examTime.getText().toString();
-                        String location = examLocation.getText().toString();
-
-                        calendarListView.addToList(new Exam(name, date, time, location));
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .setCancelable(false);
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
 }
