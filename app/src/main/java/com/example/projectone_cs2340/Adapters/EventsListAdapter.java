@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectone_cs2340.MainActivity;
 import com.example.projectone_cs2340.R;
+import com.example.projectone_cs2340.Scheduler.Date;
 import com.example.projectone_cs2340.Scheduler.Event;
 import com.example.projectone_cs2340.Scheduler.Lecture;
 import com.example.projectone_cs2340.Scheduler.Task;
@@ -86,6 +87,7 @@ public class EventsListAdapter extends BaseAdapter {
         EditText lectureName = (EditText) view.findViewById(R.id.name);
         EditText lectureInstructor = (EditText) view.findViewById(R.id.description);
         EditText lectureTime = (EditText) view.findViewById(R.id.time);
+        EditText eventDate = (EditText) view.findViewById(R.id.date);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getView(position, convertView, parent).getContext());
         builder.setMessage("Enter event details here:")
@@ -96,8 +98,9 @@ public class EventsListAdapter extends BaseAdapter {
                         String name = lectureName.getText().toString();
                         String instructor = lectureInstructor.getText().toString();
                         String time = lectureTime.getText().toString();
+                        String date = eventDate.getText().toString();
 
-                        events.get(position).updateText(name, instructor, time);
+                        events.get(position).updateText(name, instructor, new Date(date, time));
                     }
                 })
                 .setNegativeButton("Cancel", null)

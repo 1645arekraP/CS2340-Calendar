@@ -122,21 +122,3 @@ public class TodoListAdapter extends BaseAdapter {
 
 
 }
-/*
-* eventButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(finalConvertView.getContext(), v);
-                popupMenu.getMenuInflater().inflate(R.menu.todo_menu, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.deleteOption) {
-                            System.out.println("Clicked!");
-                        }
-                        return false;
-                    }
-                });
-
-                popupMenu.show();
-            }
-        });*/
