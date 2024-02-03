@@ -15,6 +15,7 @@ import com.example.projectone_cs2340.Scheduler.Event;
 import com.example.projectone_cs2340.Scheduler.Task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +48,10 @@ public class TodoList extends Fragment {
 
     public void addToList(Task event) {
         events.add(event);
+    }
+
+    public void sortByName() {
+        events.sort(Comparator.comparing(Task::getStringTitle));
     }
 
     public void removeFromList(int position) {

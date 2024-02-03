@@ -22,6 +22,8 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AlertDialog;
 import android.widget.PopupMenu;
 
+import java.util.Comparator;
+
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton eventButton;
     TodoList todoList;
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         String desc = toDoDescription.getText().toString();
 
                         todoList.addToList(new Task(title, desc));
+                        todoList.sortByName();
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -180,4 +183,5 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
 }

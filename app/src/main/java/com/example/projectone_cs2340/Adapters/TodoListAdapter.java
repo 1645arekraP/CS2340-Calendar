@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectone_cs2340.MainActivity;
 import com.example.projectone_cs2340.R;
+import com.example.projectone_cs2340.Scheduler.Event;
 import com.example.projectone_cs2340.Scheduler.Task;
 import com.example.projectone_cs2340.Scheduler.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class TodoListAdapter extends BaseAdapter {
     private ArrayList<Task> events;
@@ -86,6 +88,7 @@ public class TodoListAdapter extends BaseAdapter {
     public void addButtonListener() {
 
     }
+
 
     public void addEvent(Task event) {
         events.add(event);

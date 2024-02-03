@@ -71,10 +71,14 @@ public class Task extends Event {
         this.description = description;
     }
 
-    public String getTitle() {
-        return title;
-    }
+    //public static String getTitle() {
+    //    return title;
+    //}
     public String getDescription() {
         return description;
+    }
+
+    public String getStringTitle() {
+        return title;
     }
 }
