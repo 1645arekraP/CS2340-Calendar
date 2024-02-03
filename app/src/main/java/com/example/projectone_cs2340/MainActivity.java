@@ -20,6 +20,8 @@ import com.example.projectone_cs2340.Scheduler.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AlertDialog;
+
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import java.util.Comparator;
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton eventButton;
     TodoList todoList;
     EventsList calendarListView;
+
+    ImageButton sortButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +83,39 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
+
+        sortButton = findViewById(R.id.sortButton);
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sortPopUpHelper(v);
+            }
+        });
+    }
+
+    private void sortPopUpHelper(View v)
+    {
+        PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
+        popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.nameASCOption) {
+                    todoList.sortByNameASC();
+                }
+                else if (item.getItemId() == R.id.nameDESCOption) {
+                    todoList.sortByNameDESC();
+                }
+                else if (item.getItemId() == R.id.dateASCOption) {
+                    todoList.sortByNameASC();
+                }
+                else if (item.getItemId() == R.id.dateDESCOption) {
+                    todoList.sortByNameASC();
+                }
+                return false;
+            }
+        });
+
+        popupMenu.show();
     }
 
     // All of these methods below could probably be combined into a class
@@ -98,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         String desc = toDoDescription.getText().toString();
 
                         todoList.addToList(new Task(title, desc));
-                        todoList.sortByName();
+                        //todoList.sortByName();
                     }
                 })
                 .setNegativeButton("Cancel", null)
