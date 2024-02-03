@@ -13,4 +13,16 @@ public class Exam extends Event {
     public Exam(String name, String location, Date date) {
         super(name, date, Color.parseColor("#AEC6CF"), location);
     }
+
+    @Override
+    public View getView(View convertView, ViewGroup parent) {
+        TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
+        TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
+        TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
+        nameTextView.setText("Exam: " + name);
+        instructorTextView.setText(extraInfo);
+        timeTextView.setText(date.toString());
+        nameTextView.setTextColor(colorValue);
+        return convertView;
+    }
 }

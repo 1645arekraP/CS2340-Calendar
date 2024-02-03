@@ -12,6 +12,18 @@ public class Lecture extends Event {
         super(name, date, Color.parseColor("#ff6961"), instructor);
     }
 
+    @Override
+    public View getView(View convertView, ViewGroup parent) {
+        TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
+        TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
+        TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
+        nameTextView.setText("Lecture: " + name);
+        instructorTextView.setText(extraInfo);
+        timeTextView.setText(date.toString());
+        nameTextView.setTextColor(colorValue);
+        return convertView;
+    }
+
     public void updateText(String name, String instructor, Date date) {
         this.name = name;
         this.extraInfo = instructor;
