@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/classType"
+        android:title="Sort by Type" />
+    <item
         android:id="@+id/nameASCOption"
-        android:title="Sort Name ASC" />
+        android:title="Sort by Name ASC" />
     <item
         android:id="@+id/nameDESCOption"
-        android:title="Sort Name DESC" />
+        android:title="Sort by Name DESC" />
     <item
         android:id="@+id/dateASCOption"
-        android:title="Sort Date ASC" />
+        android:title="Sort by Date ASC" />
     <item
         android:id="@+id/dateDESCOption"
-        android:title="Sort Date DESC" />
+        android:title="Sort by Date DESC" />
 </menu>

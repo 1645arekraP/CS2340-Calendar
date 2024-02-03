@@ -10,7 +10,7 @@ import com.example.projectone_cs2340.R;
 public class Assignment extends Event {
 
     public Assignment(String name, String course, Date date) {
-        super(name, date, Color.parseColor("#77dd77"), course);
+        super(name, date, Color.parseColor("#77dd77"), course, "Assignment");
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Assignment extends Event {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
         TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
-        nameTextView.setText(name + "\nType: Assignment");
+        nameTextView.setText(name + "\nType: " + type);
         instructorTextView.setText(extraInfo);
         timeTextView.setText(date.toString());
         nameTextView.setTextColor(colorValue);

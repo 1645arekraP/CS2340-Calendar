@@ -13,11 +13,14 @@ public abstract class Event {
     protected String extraInfo;
     protected int colorValue;
 
-    public Event(String name, Date date, int colorValue, String extraInfo) {
+    protected String type;
+
+    public Event(String name, Date date, int colorValue, String extraInfo, String type) {
         this.name = name;
         this.date = date;
         this.extraInfo = extraInfo;
         this.colorValue = colorValue;
+        this.type = type;
     }
 
     public int getLayout() {
@@ -39,5 +42,10 @@ public abstract class Event {
     public Date getDate()
     {
         return date;
+    }
+
+    public String getType()
+    {
+        return type;
     }
 }

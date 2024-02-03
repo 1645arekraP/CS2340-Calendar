@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
                     eventsList.sortByDateASC();
                 } else if (item.getItemId() == R.id.dateDESCOption) {
                     eventsList.sortByDateDESC();
+                } else if (item.getItemId() == R.id.classType) {
+                    eventsList.sortByType();
                 }
                 return false;
             }

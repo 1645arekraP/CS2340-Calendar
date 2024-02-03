@@ -77,4 +77,9 @@ public class EventsList extends Fragment {
         Collections.reverse(events);
         adapter.notifyDataSetChanged();
     }
+
+    public void sortByType() {
+        events.sort(Comparator.comparing(Event::getType));
+        adapter.notifyDataSetChanged();
+    }
 }
