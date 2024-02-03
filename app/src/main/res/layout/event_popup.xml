@@ -19,8 +19,9 @@
         android:hint="Event Description" />
 
     <EditText
-        android:id="@+id/type"
+        android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Type of event" />
+        android:hint="Time: hh:mm:ss"
+        android:inputType="time" />
 </LinearLayout>

@@ -39,6 +39,11 @@ public class Task extends Event {
     }
 
     @Override
+    public void createView(View view) {
+
+    }
+
+    @Override
     public int getLayout() {
         return R.layout.todo_task;
     }

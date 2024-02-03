@@ -7,10 +7,13 @@ import android.widget.TextView;
 
 import com.example.projectone_cs2340.R;
 
+import java.sql.Time;
+
 public class Lecture extends Event {
     private String location;
     private String instructor;
-    private String time;
+    private Date date;
+    private Time time;
     private int colorValue;
 
     public Lecture(String data) {
@@ -20,7 +23,8 @@ public class Lecture extends Event {
     public Lecture(String location, String instructor, String time) {
         this.location = location;
         this.instructor = instructor;
-        this.time = time;
+        this.time = Time.valueOf(time);
+        //this.date = date;
         colorValue = Color.parseColor("#ff6961");
     }
 
@@ -41,7 +45,7 @@ public class Lecture extends Event {
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
         nameTextView.setText("Lecture: " + instructor);
         instructorTextView.setText(location);
-        timeTextView.setText(time);
+        timeTextView.setText(time.toString());
         nameTextView.setTextColor(colorValue);
         return convertView;
     }
