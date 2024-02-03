@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -53,7 +54,7 @@ public class TodoListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(events.get(position).getLayout(), null);
-        FloatingActionButton eventButton = convertView.findViewById(R.id.eventSettingsButton);
+        ImageButton eventButton = convertView.findViewById(R.id.eventSettingsButton);
 
         View finalConvertView = convertView;
         eventButton.setOnClickListener(new View.OnClickListener() {

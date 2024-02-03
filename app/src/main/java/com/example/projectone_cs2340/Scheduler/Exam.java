@@ -11,7 +11,7 @@ public class Exam extends Event {
     private String location;
 
     public Exam(String name, String location, Date date) {
-        super(name, date, Color.parseColor("#AEC6CF"), location, "Exam");
+        super(name, date, Color.parseColor("#003459"), location, "Exam");
     }
 
     @Override

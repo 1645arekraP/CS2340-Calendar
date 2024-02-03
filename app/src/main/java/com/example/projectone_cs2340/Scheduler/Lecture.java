@@ -9,7 +9,7 @@ import com.example.projectone_cs2340.R;
 
 public class Lecture extends Event {
     public Lecture(String name, String instructor, Date date) {
-        super(name, date, Color.parseColor("#ff6961"), instructor, "Lecture");
+        super(name, date, Color.parseColor("#498eb9"), instructor, "Lecture");
     }
 
     @Override

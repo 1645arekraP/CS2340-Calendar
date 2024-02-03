@@ -25,10 +25,13 @@ public class Task {
     private String description;
     private boolean completed;
 
+    protected int colorValue;
+
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
         completed = false;
+        colorValue = Color.parseColor("#1f6f78");
     }
 
     public int getLayout() {
@@ -36,12 +39,13 @@ public class Task {
     }
 
     public View getView(View convertView, ViewGroup parent) {
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
+        TextView nameTextView = (TextView) convertView.findViewById(R.id.title);
         TextView descriptionTextView = (TextView) convertView.findViewById(R.id.description);
-        titleTextView.setText(name);
+        nameTextView.setText(name);
         descriptionTextView.setText(description);
+        nameTextView.setTextColor(colorValue);
         if (completed) {
-            titleTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            nameTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             descriptionTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         }

@@ -10,7 +10,7 @@ import com.example.projectone_cs2340.R;
 public class Assignment extends Event {
 
     public Assignment(String name, String course, Date date) {
-        super(name, date, Color.parseColor("#77dd77"), course, "Assignment");
+        super(name, date, Color.parseColor("#028090"), course, "Assignment");
     }
 
     @Override
