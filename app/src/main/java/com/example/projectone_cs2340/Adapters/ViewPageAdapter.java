@@ -1,4 +1,4 @@
-package com.example.projectone_cs2340;
+package com.example.projectone_cs2340.Adapters;
 
 import android.widget.ArrayAdapter;
 import android.widget.ListView;

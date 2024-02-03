@@ -12,7 +12,7 @@ public abstract class Event {
     public abstract void createView(View view);
 
     public abstract int getLayout();
-    public abstract View getView(View convertView, ViewGroup parent, Event event);
+    public abstract View getView(View convertView, ViewGroup parent);
 
     public static Event stringToEvent(String data) {
         String type = data.substring(0, data.indexOf(','));

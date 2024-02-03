@@ -33,7 +33,7 @@ public class Exam extends Event {
     }
 
     @Override
-    public View getView(View convertView, ViewGroup parent, Event event) {
+    public View getView(View convertView, ViewGroup parent) {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
         TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);

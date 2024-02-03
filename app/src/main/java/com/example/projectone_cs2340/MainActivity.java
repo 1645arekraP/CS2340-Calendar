@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.projectone_cs2340.Adapters.EventsList;
+import com.example.projectone_cs2340.Adapters.TodoList;
+import com.example.projectone_cs2340.Adapters.ViewPageAdapter;
 import com.example.projectone_cs2340.Scheduler.Assignment;
 import com.example.projectone_cs2340.Scheduler.Exam;
 import com.example.projectone_cs2340.Scheduler.Lecture;
@@ -21,8 +24,8 @@ import android.widget.PopupMenu;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton eventButton;
-    ItemList todoList;
-    ItemList calendarListView;
+    TodoList todoList;
+    EventsList calendarListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         );
 
-        calendarListView = new ItemList();
-        todoList = new ItemList();
+        calendarListView = new EventsList();
+        todoList = new TodoList();
+
 
 
         viewPageAdapter.addFragment(calendarListView, "Events");

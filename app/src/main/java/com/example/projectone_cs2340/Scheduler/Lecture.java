@@ -35,7 +35,7 @@ public class Lecture extends Event {
     }
 
     @Override
-    public View getView(View convertView, ViewGroup parent, Event event) {
+    public View getView(View convertView, ViewGroup parent) {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
         TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
@@ -44,6 +44,10 @@ public class Lecture extends Event {
         timeTextView.setText(time);
         nameTextView.setTextColor(colorValue);
         return convertView;
+    }
+
+    public void promptAlert() {
+
     }
 
     @Override
