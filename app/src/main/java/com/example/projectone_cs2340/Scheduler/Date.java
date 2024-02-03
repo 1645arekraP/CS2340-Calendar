@@ -1,9 +1,23 @@
 package com.example.projectone_cs2340.Scheduler;
 
+import java.util.Set;
+
 public class Date implements Comparable {
     private long data = 0;
 
     public Date() {}
+
+    public Date(String date, String time) {
+        String[] dates = date.split("/");
+        String[] times = time.split(":");
+
+        setDay(Integer.parseInt(dates[1]));
+        setMonth(Integer.parseInt(dates[0]));
+        setYear(Integer.parseInt(dates[2]));
+        setHour(Integer.parseInt(times[0]));
+        setMinutes(Integer.parseInt(times[1]));
+        setSeconds(Integer.parseInt(times[2]));
+    }
     public Date(int year, int month, int day, int hour, int minutes, int seconds) {
         setYear(year);
         setMonth(month);
@@ -23,62 +37,62 @@ public class Date implements Comparable {
         return (int)getBits(0, 16);
     }
     public int getMonth() {
-        return (int)getBits(16, 8);
+        return (int)getBits(16, 4);
     }
     public int getDay() {
-        return (int)getBits(24, 8);
+        return (int)getBits(20, 5);
     }
     public int getHour() {
-        return (int)getBits(32, 8);
+        return (int)getBits(25, 5);
     }
     public int getMinutes() {
-        return (int)getBits(40, 8);
+        return (int)getBits(30, 6);
     }
     public int getSeconds() {
-        return (int)getBits(48, 8);
+        return (int)getBits(36, 6);
     }
 
     public int setYear(int data) {
-        if (data > 32768 || data <= -32768) {
+        if (data < 0 || data > 65536 ) {
             throw new IllegalArgumentException("Year out of bounds: " + data);
         }
 
         return (int)setBits(data, 0, 16);
     }
     public int setMonth(int data) {
-        if (data > 128 || data <= -128) {
+        if (data < 0 || data > 12) {
             throw new IllegalArgumentException("Month out of bounds: " + data);
         }
 
-        return (int)setBits(data, 16, 24);
+        return (int)setBits(data, 16, 4);
     }
     public int setDay(int data) {
-        if (data > 128 || data <= -128) {
+        if (data < 0 || data > 31) {
             throw new IllegalArgumentException("Day out of bounds: " + data);
         }
 
-        return (int)setBits(data, 24, 32);
+        return (int)setBits(data, 20, 5);
     }
     public int setHour(int data) {
-        if (data > 128 || data <= -128) {
+        if (data < 0 || data > 24) {
             throw new IllegalArgumentException("Hour out of bounds: " + data);
         }
 
-        return (int)setBits(data, 32, 40);
+        return (int)setBits(data, 25, 5);
     }
     public int setMinutes(int data) {
-        if (data > 128 || data <= -128) {
+        if (data < 0 || data > 60) {
             throw new IllegalArgumentException("Minutes out of bounds: " + data);
         }
 
-        return (int)setBits(data, 40, 48);
+        return (int)setBits(data, 30, 6);
     }
     public int setSeconds(int data) {
-        if (data > 128 || data <= -128) {
+        if (data < 0 || data > 60) {
             throw new IllegalArgumentException("Seconds out of bounds: " + data);
         }
 
-        return (int)setBits(data, 48, 56);
+        return (int)setBits(data, 36, 6);
     }
     public long getData() {
         return data;
@@ -96,7 +110,7 @@ public class Date implements Comparable {
 
     @Override
     public String toString() {
-        return String.format("%d-%02d-%02dT%02d:%02d:%02d", getYear(), getMonth(), getDay(), getHour(), getMinutes(), getSeconds());
+        return String.format("%d-%02d-%02d %02d:%02d:%02d", getYear(), getMonth(), getDay(), getHour(), getMinutes(), getSeconds());
     }
 
     /*
@@ -111,7 +125,7 @@ public class Date implements Comparable {
             throw new IllegalArgumentException("Cannot compare objects not of the same type");
         }
 
-        return (int)((data - ((Date)obj).getData()) >> 32);
+        return Long.compare(data, ((Date)obj).getData());
     }
 
     @Override

@@ -13,18 +13,16 @@ public class Lecture extends Event {
     private String location;
     private String instructor;
     private Date date;
-    private Time time;
     private int colorValue;
 
     public Lecture(String data) {
         name = data.substring(0, data.indexOf(','));
     }
 
-    public Lecture(String location, String instructor, String time) {
+    public Lecture(String location, String instructor, Date date) {
         this.location = location;
         this.instructor = instructor;
-        this.time = Time.valueOf(time);
-        //this.date = date;
+        this.date = date;
         colorValue = Color.parseColor("#ff6961");
     }
 
@@ -45,13 +43,15 @@ public class Lecture extends Event {
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
         nameTextView.setText("Lecture: " + instructor);
         instructorTextView.setText(location);
-        timeTextView.setText(time.toString());
+        timeTextView.setText(date.toString());
         nameTextView.setTextColor(colorValue);
         return convertView;
     }
 
-    public void promptAlert() {
-
+    public void updateText(String location, String instructor, String time) {
+        this.location = location;
+        this.instructor = instructor;
+        //this.time = Date.valueOf(time);
     }
 
     @Override

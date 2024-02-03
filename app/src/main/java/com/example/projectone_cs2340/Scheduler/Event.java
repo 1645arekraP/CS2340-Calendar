@@ -27,4 +27,8 @@ public abstract class Event {
         }
         throw new IllegalArgumentException("Data type not supported");
     }
+
+    public void updateText(String name, String instructor, String time) {
+
+    }
 }

@@ -24,4 +24,11 @@
         android:layout_height="48dp"
         android:hint="Time: hh:mm:ss"
         android:inputType="time" />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Date: mm/dd/yyyy"
+        android:inputType="date" />
 </LinearLayout>
