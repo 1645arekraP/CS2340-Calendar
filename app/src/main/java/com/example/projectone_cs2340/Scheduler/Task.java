@@ -18,6 +18,8 @@ import com.example.projectone_cs2340.R;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
+
 public class Task extends Event {
     private String title;
     private String description;
@@ -34,10 +36,6 @@ public class Task extends Event {
         this.title = title;
         this.description = description;
         completed = false;
-    }
-    @Override
-    public void createView(View view) {
-
     }
 
     @Override
