@@ -32,6 +32,11 @@ public class Course extends Event {
     }
 
     @Override
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
     public int getLayout() {
         return 0;
     }

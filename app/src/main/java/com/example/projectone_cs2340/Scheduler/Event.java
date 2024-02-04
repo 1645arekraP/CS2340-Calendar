@@ -28,7 +28,5 @@ public abstract class Event {
         throw new IllegalArgumentException("Data type not supported");
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public abstract Date getDate();
 }

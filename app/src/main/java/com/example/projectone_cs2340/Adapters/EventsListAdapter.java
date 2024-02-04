@@ -23,7 +23,7 @@ public class EventsListAdapter extends BaseAdapter {
     private List<Event> events;
     private LayoutInflater layoutInflater;
 
-    public EventsListAdapter(Context context, ArrayList<Event> eventData) {
+    public EventsListAdapter(Context context, List<Event> eventData) {
         this.events = eventData;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -85,11 +85,10 @@ public class EventsListAdapter extends BaseAdapter {
         events.remove(position);
     }
 
-    public void setEvents(List<Event> data) {
-        events = data;
+    @Override
+    public String toString() {
+        return events.toString();
     }
-
-
 }
 /*
 * eventButton.setOnClickListener(new View.OnClickListener() {

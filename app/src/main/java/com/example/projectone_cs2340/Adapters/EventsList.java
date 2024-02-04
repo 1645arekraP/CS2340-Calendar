@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -26,7 +27,7 @@ import java.util.List;
 public class EventsList extends Fragment {
     private ListView list;
     private View view;
-    private ArrayList<Event> events;
+    private List<Event> events;
     private EventsListAdapter adapter;
 
     public EventsList() {
@@ -50,20 +51,17 @@ public class EventsList extends Fragment {
     public void addToList(Event event) {
         events.add(event);
     }
-
+    public void setList(List<Event> data) {
+        events.clear();
+        events.addAll(data);
+        adapter.notifyDataSetChanged();
+    }
     public void removeFromList(int position) {
         //adapter.removeEvent(position);
     }
-
-    public List<Event> getEventsByDate(Date date) {
-        List<Event> result = new ArrayList<>();
-        for (Event it : events) {
-            if (date.sameDay(it.getDate())) {
-                result.add(it);
-            }
-        }
-        return result;
-    }
-
     public EventsListAdapter getAdapter() {return adapter;}
+
+    public String toString() {
+        return events.toString();
+    }
 }

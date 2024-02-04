@@ -28,20 +28,31 @@ import androidx.appcompat.app.AlertDialog;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    List<Event> events;
+    List<Event> tasks;
+    List<Event> eventsOnDay;
+
     FloatingActionButton eventButton;
     TodoList todoList;
     EventsList calendarListView;
-
     ImageButton sortButton;
+    CalendarView calendar;
+    Date selectedDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_fragment);
+
+        events = new ArrayList<>();
+        tasks = new ArrayList<>();
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.pager);
@@ -95,19 +106,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        CalendarView calendar = findViewById(R.id.calendarView);
+        calendar = findViewById(R.id.calendarView);
+        Calendar dateCalculator = Calendar.getInstance();
+        dateCalculator.setTimeInMillis(calendar.getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String curDate = sdf.format(dateCalculator.getTime());
+        String[] curDateData = curDate.split("-");
+        selectedDate = new Date(
+                Integer.parseInt(curDateData[0]),
+                Integer.parseInt(curDateData[1]),
+                Integer.parseInt(curDateData[2])
+        );
+
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Date selectedDay = new Date(year, month, dayOfMonth);
-                List<Event> eventsOnDay = calendarListView.getEventsByDate(selectedDay);
-                calendarListView.getAdapter().setEvents(eventsOnDay);
+                selectedDate.setYear(year);
+                selectedDate.setMonth(month + 1);
+                selectedDate.setDay(dayOfMonth);
+
+                updateViewList();
             }
         });
     }
 
-    private void sortPopUpHelper(View v)
-    {
+    private void sortPopUpHelper(View v) {
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
         popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -130,6 +153,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         popupMenu.show();
+    }
+
+    private void updateViewList() {
+        calendarListView.setList(getEventsByDate(selectedDate));
+    }
+
+    public List<Event> getEventsByDate(Date date) {
+        List<Event> result = new ArrayList<>();
+        for (Event it : events) {
+            if (date.sameDay(it.getDate())) {
+                result.add(it);
+            }
+        }
+        return result;
     }
 
     // All of these methods below could probably be combined into a class
@@ -170,11 +207,21 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String name = lectureName.getText().toString();
-                        String instructor = lectureInstructor.getText().toString();
+                        String instructor = lectureName.getText().toString();
+                        String name = lectureInstructor.getText().toString();
                         String time = lectureTime.getText().toString();
 
-                        calendarListView.addToList(new Lecture(name, instructor, time));
+                        String[] timeData = time.split(":");
+                        Date date = new Date(
+                                selectedDate.getYear(),
+                                selectedDate.getMonth(),
+                                selectedDate.getDay(),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
+                        events.add(new Lecture(name, instructor, date));
+                        updateViewList();
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -199,7 +246,17 @@ public class MainActivity extends AppCompatActivity {
                         String instructor = courseInstructor.getText().toString();
                         String time = courseTime.getText().toString();
 
-                        calendarListView.addToList(new Assignment(name, instructor, time));
+                        String[] timeData = time.split(":");
+                        Date date = new Date(
+                                selectedDate.getYear(),
+                                selectedDate.getMonth(),
+                                selectedDate.getDay(),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
+                        events.add(new Assignment(name, instructor, date));
+                        updateViewList();
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -222,11 +279,23 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = examName.getText().toString();
-                        String date = examDate.getText().toString();
-                        String time = examTime.getText().toString();
+                        String dateStr = examDate.getText().toString();
+                        String timeStr = examTime.getText().toString();
                         String location = examLocation.getText().toString();
 
-                        calendarListView.addToList(new Exam(name, date, time, location));
+                        String[] dateData = dateStr.split("-");
+                        String[] timeData = timeStr.split(":");
+                        Date date = new Date(
+                                Integer.parseInt(dateData[0]),
+                                Integer.parseInt(dateData[1]),
+                                Integer.parseInt(dateData[2]),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
+
+                        events.add(new Exam(name, date, location));
+                        updateViewList();
                     }
                 })
                 .setNegativeButton("Cancel", null)

@@ -18,6 +18,19 @@ public class Date implements Comparable {
     public Date(long data) {
         this.data = data;
     }
+    public Date(String data){
+        String[] halves = data.split("T");
+        String[] date = halves[0].split("-");
+        String[] time = halves[1].split(":");
+
+        setYear(Integer.parseInt(date[0]));
+        setMonth(Integer.parseInt(date[1]));
+        setDay(Integer.parseInt(date[2]));
+
+        setHour(Integer.parseInt(time[0]));
+        setMinutes(Integer.parseInt(time[1]));
+        setSeconds(Integer.parseInt(time[2]));
+    }
 
     public int getYear() {
         return (int)getBits(0, 16);

@@ -61,6 +61,10 @@ public class Task extends Event {
         }
         return convertView;
     }
+    @Override
+    public Date getDate() {
+        return date;
+    }
 
     public void markCompleted() {
         completed = !completed;

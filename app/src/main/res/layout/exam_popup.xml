@@ -17,14 +17,14 @@
         android:inputType="date"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Date" />
+        android:hint="Date: yyyy-mm-dd" />
 
     <EditText
         android:id="@+id/time"
         android:inputType="time"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Time" />
+        android:hint="Time: hh:mm:ss" />
 
     <EditText
         android:id="@+id/location"
