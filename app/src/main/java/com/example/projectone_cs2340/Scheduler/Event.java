@@ -10,16 +10,18 @@ import com.example.projectone_cs2340.R;
 public abstract class Event {
     protected String name;
     protected Date date;
-    protected String extraInfo;
+    protected String description;
     protected int colorValue;
 
     protected String type;
+    protected Course course;
 
-    public Event(String name, Date date, int colorValue, String extraInfo, String type) {
+    public Event(String name, Date date, int colorValue, String description, Course course, String type) {
         this.name = name;
         this.date = date;
-        this.extraInfo = extraInfo;
+        this.description = description;
         this.colorValue = colorValue;
+        this.course = course;
         this.type = type;
     }
 
@@ -28,10 +30,11 @@ public abstract class Event {
     }
     public abstract View getView(View convertView, ViewGroup parent);
 
-    public void updateText(String name, String instructor, Date date) {
+    public void updateText(String name, String description, Date date, Course course) {
         this.name = name;
-        this.extraInfo = instructor;
+        this.description = description;
         this.date = date;
+        this.course = course;
     }
 
     public String getName()
@@ -47,5 +50,10 @@ public abstract class Event {
     public String getType()
     {
         return type;
+    }
+
+    public String getCourseName()
+    {
+        return course.getCourseName();
     }
 }

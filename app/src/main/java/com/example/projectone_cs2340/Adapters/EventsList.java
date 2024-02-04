@@ -57,29 +57,44 @@ public class EventsList extends Fragment {
 
 
     public void sortByNameASC() {
-        events.sort(Comparator.comparing(Event::getName));
-        adapter.notifyDataSetChanged();
+        if(!events.isEmpty())
+        {
+            events.sort(Comparator.comparing(Event::getCourseName));
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void sortByNameDESC() {
-        events.sort(Comparator.comparing(Event::getName));
-        Collections.reverse(events);
-        adapter.notifyDataSetChanged();
+        if(!events.isEmpty())
+        {
+            events.sort(Comparator.comparing(Event::getCourseName));
+            Collections.reverse(events);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void sortByDateASC() {
-        events.sort(Comparator.comparing(Event::getDate));
-        adapter.notifyDataSetChanged();
+        if(!events.isEmpty())
+        {
+            events.sort(Comparator.comparing(Event::getDate));
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void sortByDateDESC() {
-        events.sort(Comparator.comparing(Event::getDate));
-        Collections.reverse(events);
-        adapter.notifyDataSetChanged();
+        if(!events.isEmpty())
+        {
+            events.sort(Comparator.comparing(Event::getDate));
+            Collections.reverse(events);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void sortByType() {
-        events.sort(Comparator.comparing(Event::getType));
-        adapter.notifyDataSetChanged();
+        if(!events.isEmpty())
+        {
+            events.sort(Comparator.comparing(Event::getType));
+            adapter.notifyDataSetChanged();
+        }
     }
 }

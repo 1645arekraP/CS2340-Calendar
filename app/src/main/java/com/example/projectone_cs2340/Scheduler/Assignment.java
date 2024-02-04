@@ -9,8 +9,8 @@ import com.example.projectone_cs2340.R;
 
 public class Assignment extends Event {
 
-    public Assignment(String name, String course, Date date) {
-        super(name, date, Color.parseColor("#028090"), course, "Assignment");
+    public Assignment(String name, String description, Date date, Course c) {
+        super(name, date, Color.parseColor("#028090"), description, c, "Assignment");
     }
 
     @Override
@@ -18,8 +18,8 @@ public class Assignment extends Event {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
         TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
-        nameTextView.setText(name + "\nType: " + type);
-        instructorTextView.setText(extraInfo);
+        nameTextView.setText(name + "\nType: " + type + "\nCourse: " + course.getCourseName());
+        instructorTextView.setText(description);
         timeTextView.setText(date.toString());
         nameTextView.setTextColor(colorValue);
         return convertView;

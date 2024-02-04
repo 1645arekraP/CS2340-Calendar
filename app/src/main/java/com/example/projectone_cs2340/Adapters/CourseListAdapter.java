@@ -20,17 +20,18 @@ import com.example.projectone_cs2340.R;
 import com.example.projectone_cs2340.Scheduler.Course;
 import com.example.projectone_cs2340.Scheduler.Date;
 import com.example.projectone_cs2340.Scheduler.Event;
-import com.example.projectone_cs2340.Scheduler.Lecture;
+import com.example.projectone_cs2340.Scheduler.Task;
 import com.example.projectone_cs2340.Scheduler.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class EventsListAdapter extends BaseAdapter {
-    private ArrayList<Event> events;
+public class CourseListAdapter extends BaseAdapter {
+    private ArrayList<Course> events;
     private LayoutInflater layoutInflater;
 
-    public EventsListAdapter(Context context, ArrayList<Event> eventData) {
+    public CourseListAdapter(Context context, ArrayList<Course> eventData) {
         this.events = eventData;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -61,7 +62,7 @@ public class EventsListAdapter extends BaseAdapter {
         eventButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(parent.getContext(), v);
-                popupMenu.getMenuInflater().inflate(R.menu.events_menu, popupMenu.getMenu());
+                popupMenu.getMenuInflater().inflate(R.menu.todo_menu, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -69,7 +70,7 @@ public class EventsListAdapter extends BaseAdapter {
                             events.remove(position);
                         }
                         if (item.getItemId() == R.id.editOption) {
-                            todoAlertDialog(position, finalConvertView, parent);
+                            courseAlertDialog(position, finalConvertView, parent);
                         }
                         notifyDataSetChanged();
                         return false;
@@ -84,13 +85,25 @@ public class EventsListAdapter extends BaseAdapter {
         return events.get(position).getView(convertView, parent);
     }
 
-    private void todoAlertDialog(int position, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(getView(position, convertView, parent).getContext()).inflate(R.layout.event_popup, null);
-        EditText eventName = (EditText) view.findViewById(R.id.name);
-        EditText eventDescription = (EditText) view.findViewById(R.id.description);
-        EditText eventDate = (EditText) view.findViewById(R.id.date);
-        EditText eventTime = (EditText) view.findViewById(R.id.time);
-        EditText eventCourse = (EditText) view.findViewById(R.id.course);
+    public void addButtonListener() {
+
+    }
+
+
+    public void addEvent(Course course) {
+        events.add(course);
+    }
+
+    public void removeEvent(int position) {
+        events.remove(position);
+    }
+
+    private void courseAlertDialog(int position, View convertView, ViewGroup parent) {
+        View view = LayoutInflater.from(getView(position, convertView, parent).getContext()).inflate(R.layout.course_popup, null);
+        EditText courseName = (EditText) view.findViewById(R.id.name);
+        EditText courseDate = (EditText) view.findViewById(R.id.date);
+        EditText courseTime = (EditText) view.findViewById(R.id.time);
+        EditText courseInstructor = (EditText) view.findViewById(R.id.instructor);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getView(position, convertView, parent).getContext());
         builder.setMessage("Enter event details here:")
@@ -98,14 +111,12 @@ public class EventsListAdapter extends BaseAdapter {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String name = eventName.getText().toString();
-                        String description = eventDescription.getText().toString();
-                        String date = eventDate.getText().toString();
-                        String time = eventTime.getText().toString();
-                        String courseName = eventCourse.getText().toString();
-
-
-                        events.get(position).updateText(name, description, new Date(date, time), new Course(courseName));
+                        String name = courseName.getText().toString();
+                        String date = courseDate.getText().toString();
+                        String time = courseTime.getText().toString();
+                        String instructor = courseInstructor.getText().toString();
+                        events.get(position).updateText(name, new Date(date, time), instructor);
+                        //events.get(position).updateText(name, instructor);
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -114,20 +125,3 @@ public class EventsListAdapter extends BaseAdapter {
         alert.show();
     }
 }
-/*eventButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(finalConvertView.getContext(), v);
-                popupMenu.getMenuInflater().inflate(R.menu.todo_menu, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.deleteOption) {
-                            System.out.println("Clicked!");
-                        }
-                        return false;
-                    }
-                });
-
-                popupMenu.show();
-            }
-        });*/
