@@ -122,4 +122,8 @@ public class Date implements Comparable {
             return false;
         }
     }
+
+    public boolean sameDay(Date date) {
+        return getYear() == date.getYear() && getMonth() == date.getMonth() && getDay() == date.getDay();
+    }
 }

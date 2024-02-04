@@ -3,7 +3,7 @@ package com.example.projectone_cs2340.Scheduler;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Date;
+import com.example.projectone_cs2340.Scheduler.Date;
 
 public abstract class Event {
     protected String name;
@@ -26,5 +26,9 @@ public abstract class Event {
             return new Task(data, "REMOVE LATER");
         }
         throw new IllegalArgumentException("Data type not supported");
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

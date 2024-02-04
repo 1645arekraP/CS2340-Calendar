@@ -1,5 +1,6 @@
 package com.example.projectone_cs2340;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.EditText;
 
 import com.example.projectone_cs2340.Adapters.EventsList;
@@ -17,6 +19,8 @@ import com.example.projectone_cs2340.Scheduler.Assignment;
 import com.example.projectone_cs2340.Scheduler.Exam;
 import com.example.projectone_cs2340.Scheduler.Lecture;
 import com.example.projectone_cs2340.Scheduler.Task;
+import com.example.projectone_cs2340.Scheduler.Date;
+import com.example.projectone_cs2340.Scheduler.Event;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AlertDialog;
@@ -24,7 +28,9 @@ import androidx.appcompat.app.AlertDialog;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton eventButton;
@@ -48,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         calendarListView = new EventsList();
         todoList = new TodoList();
-
-
 
         viewPageAdapter.addFragment(calendarListView, "Events");
         viewPageAdapter.addFragment(todoList, "Todo");
@@ -88,6 +92,16 @@ public class MainActivity extends AppCompatActivity {
         sortButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sortPopUpHelper(v);
+            }
+        });
+
+        CalendarView calendar = findViewById(R.id.calendarView);
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Date selectedDay = new Date(year, month, dayOfMonth);
+                List<Event> eventsOnDay = calendarListView.getEventsByDate(selectedDay);
+                calendarListView.getAdapter().setEvents(eventsOnDay);
             }
         });
     }

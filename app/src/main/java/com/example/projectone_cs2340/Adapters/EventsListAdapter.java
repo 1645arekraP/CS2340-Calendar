@@ -17,9 +17,10 @@ import com.example.projectone_cs2340.Scheduler.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventsListAdapter extends BaseAdapter {
-    private ArrayList<Event> events;
+    private List<Event> events;
     private LayoutInflater layoutInflater;
 
     public EventsListAdapter(Context context, ArrayList<Event> eventData) {
@@ -82,6 +83,10 @@ public class EventsListAdapter extends BaseAdapter {
 
     public void removeEvent(int position) {
         events.remove(position);
+    }
+
+    public void setEvents(List<Event> data) {
+        events = data;
     }
 
 

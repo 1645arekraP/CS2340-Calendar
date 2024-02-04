@@ -12,12 +12,15 @@ import android.widget.ListView;
 
 import com.example.projectone_cs2340.R;
 import com.example.projectone_cs2340.Scheduler.Event;
+import com.example.projectone_cs2340.Scheduler.Date;
+
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TodoList#newInstance} factory method to
+ * Use the {@link TodoList} factory method to
  * create an instance of this fragment.
  */
 public class EventsList extends Fragment {
@@ -51,4 +54,16 @@ public class EventsList extends Fragment {
     public void removeFromList(int position) {
         //adapter.removeEvent(position);
     }
+
+    public List<Event> getEventsByDate(Date date) {
+        List<Event> result = new ArrayList<>();
+        for (Event it : events) {
+            if (date.sameDay(it.getDate())) {
+                result.add(it);
+            }
+        }
+        return result;
+    }
+
+    public EventsListAdapter getAdapter() {return adapter;}
 }
