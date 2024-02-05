@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     CalendarView calendar;
     Date selectedDate;
 
+    Button showAllButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +136,13 @@ public class MainActivity extends AppCompatActivity {
         sortButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sortPopUpHelper(v);
+            }
+        });
+        showAllButton = findViewById(R.id.showAllButton);
+        showAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventsList.setList(events);
             }
         });
     }
