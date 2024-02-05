@@ -244,16 +244,18 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (type) {
                             case ("L"):
-                                eventsList.addToList(new Lecture(name, description, date, new Course(courseName)));
+                                events.add(new Lecture(name, description, date, new Course(courseName)));
                                 break;
                             case ("A"):
-                                eventsList.addToList(new Assignment(name, description, date, new Course(courseName)));
+                                events.add(new Assignment(name, description, date, new Course(courseName)));
                                 break;
                             case ("E"):
-                                eventsList.addToList(new Exam(name, description, date, new Course(courseName)));
+                                events.add(new Exam(name, description, date, new Course(courseName)));
                                 break;
                         }
+                        updateViewList();
                     }
+
                 })
                 .setNegativeButton("Cancel", null)
                 .setCancelable(false);
