@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.widget.Adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,6 +18,7 @@ import com.example.projectone_cs2340.Scheduler.Task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,12 +28,13 @@ import java.util.Comparator;
 public class EventsList extends Fragment {
     private ListView list;
     private View view;
-    private ArrayList<Event> events;
+    private List<Event> events;
     private EventsListAdapter adapter;
 
     public EventsList() {
         events = new ArrayList<>();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -57,16 +60,14 @@ public class EventsList extends Fragment {
 
 
     public void sortByNameASC() {
-        if(!events.isEmpty())
-        {
+        if (!events.isEmpty()) {
             events.sort(Comparator.comparing(Event::getCourseName));
             adapter.notifyDataSetChanged();
         }
     }
 
     public void sortByNameDESC() {
-        if(!events.isEmpty())
-        {
+        if (!events.isEmpty()) {
             events.sort(Comparator.comparing(Event::getCourseName));
             Collections.reverse(events);
             adapter.notifyDataSetChanged();
@@ -74,16 +75,14 @@ public class EventsList extends Fragment {
     }
 
     public void sortByDateASC() {
-        if(!events.isEmpty())
-        {
+        if (!events.isEmpty()) {
             events.sort(Comparator.comparing(Event::getDate));
             adapter.notifyDataSetChanged();
         }
     }
 
     public void sortByDateDESC() {
-        if(!events.isEmpty())
-        {
+        if (!events.isEmpty()) {
             events.sort(Comparator.comparing(Event::getDate));
             Collections.reverse(events);
             adapter.notifyDataSetChanged();
@@ -91,10 +90,23 @@ public class EventsList extends Fragment {
     }
 
     public void sortByType() {
-        if(!events.isEmpty())
-        {
+        if (!events.isEmpty()) {
             events.sort(Comparator.comparing(Event::getType));
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void setList(List<Event> data) {
+        events.clear();
+        events.addAll(data);
+        adapter.notifyDataSetChanged();
+    }
+
+    public EventsListAdapter getAdapter() {
+        return adapter;
+    }
+
+    public String toString() {
+        return events.toString();
     }
 }

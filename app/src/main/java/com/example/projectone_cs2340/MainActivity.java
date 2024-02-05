@@ -1,14 +1,21 @@
 package com.example.projectone_cs2340;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.EditText;
 
 import com.example.projectone_cs2340.Adapters.CourseList;
@@ -18,6 +25,7 @@ import com.example.projectone_cs2340.Adapters.ViewPageAdapter;
 import com.example.projectone_cs2340.Scheduler.Assignment;
 import com.example.projectone_cs2340.Scheduler.Course;
 import com.example.projectone_cs2340.Scheduler.Date;
+import com.example.projectone_cs2340.Scheduler.Event;
 import com.example.projectone_cs2340.Scheduler.Exam;
 import com.example.projectone_cs2340.Scheduler.Lecture;
 import com.example.projectone_cs2340.Scheduler.Task;
@@ -29,6 +37,9 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 public class MainActivity extends AppCompatActivity {
+    List<Event> events;
+    List<Event> tasks;
+    List<Event> eventsOnDay;
     FloatingActionButton eventButton;
     TodoList todoList;
     EventsList eventsList;
@@ -36,11 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
     CourseList courseList;
 
+    CalendarView calendar;
+    Date selectedDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_fragment);
 
+        events = new ArrayList<>();
+        tasks = new ArrayList<>();
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.pager);
         tabLayout.setupWithViewPager(viewPager);
@@ -91,6 +107,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        calendar = findViewById(R.id.calendarView);
+        Calendar dateCalculator = Calendar.getInstance();
+        dateCalculator.setTimeInMillis(calendar.getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String curDate = sdf.format(dateCalculator.getTime());
+        String[] curDateData = curDate.split("-");
+        selectedDate = new Date(
+                Integer.parseInt(curDateData[0]),
+                Integer.parseInt(curDateData[1]),
+                Integer.parseInt(curDateData[2])
+        );
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDate.setYear(year);
+                selectedDate.setMonth(month + 1);
+                selectedDate.setDay(dayOfMonth);
+
+                updateViewList();
+            }
+        });
+
+
         sortButton = findViewById(R.id.sortButton);
         sortButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -106,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.nameASCOption) {
+                    //Add Toast if something doesn't sort. 
                     todoList.sortByNameASC();
                     eventsList.sortByNameASC();
                     courseList.sortByNameASC();
@@ -127,6 +167,21 @@ public class MainActivity extends AppCompatActivity {
         });
         popupMenu.show();
     }
+
+    private void updateViewList() {
+        eventsList.setList(getEventsByDate(selectedDate));
+    }
+
+    public List<Event> getEventsByDate(Date date) {
+        List<Event> result = new ArrayList<>();
+        for (Event it : events) {
+            if (date.sameDay(it.getDate())) {
+                result.add(it);
+            }
+        }
+        return result;
+    }
+
 
     // All of these methods below could probably be combined into a class
     // Some attributes probably need to be renamed, I can do this later tonight
@@ -170,19 +225,32 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String name = eventName.getText().toString();
                         String description = eventDescription.getText().toString();
-                        String date = eventDate.getText().toString();
-                        String time = eventTime.getText().toString();
+                        //String date = eventDate.getText().toString();
+                        //String time = eventTime.getText().toString();
                         String courseName = eventCourse.getText().toString();
+
+                        String dateStr = eventDate.getText().toString();
+                        String timeStr = eventTime.getText().toString();
+                        String[] dateData = dateStr.split("-");
+                        String[] timeData = timeStr.split(":");
+                        Date date = new Date(
+                                Integer.parseInt(dateData[0]),
+                                Integer.parseInt(dateData[1]),
+                                Integer.parseInt(dateData[2]),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
 
                         switch (type) {
                             case ("L"):
-                                eventsList.addToList(new Lecture(name, description, new Date(date, time), new Course(courseName)));
+                                eventsList.addToList(new Lecture(name, description, date, new Course(courseName)));
                                 break;
                             case ("A"):
-                                eventsList.addToList(new Assignment(name, description, new Date(date, time), new Course(courseName)));
+                                eventsList.addToList(new Assignment(name, description, date, new Course(courseName)));
                                 break;
                             case ("E"):
-                                eventsList.addToList(new Exam(name, description, new Date(date, time), new Course(courseName)));
+                                eventsList.addToList(new Exam(name, description, date, new Course(courseName)));
                                 break;
                         }
                     }

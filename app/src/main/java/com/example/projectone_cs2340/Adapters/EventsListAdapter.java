@@ -25,12 +25,14 @@ import com.example.projectone_cs2340.Scheduler.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventsListAdapter extends BaseAdapter {
-    private ArrayList<Event> events;
+    private List<Event> events;
     private LayoutInflater layoutInflater;
 
-    public EventsListAdapter(Context context, ArrayList<Event> eventData) {
+    public EventsListAdapter(Context context, List<Event> eventData)
+    {
         this.events = eventData;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -112,6 +114,11 @@ public class EventsListAdapter extends BaseAdapter {
                 .setCancelable(false);
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public String toString() {
+        return events.toString();
     }
 }
 /*eventButton.setOnClickListener(new View.OnClickListener() {

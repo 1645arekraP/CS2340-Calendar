@@ -7,6 +7,20 @@ public class Date implements Comparable {
 
     public Date() {}
 
+    public Date(String data){
+        String[] halves = data.split("T");
+        String[] date = halves[0].split("-");
+        String[] time = halves[1].split(":");
+
+        setYear(Integer.parseInt(date[0]));
+        setMonth(Integer.parseInt(date[1]));
+        setDay(Integer.parseInt(date[2]));
+
+        setHour(Integer.parseInt(time[0]));
+        setMinutes(Integer.parseInt(time[1]));
+        setSeconds(Integer.parseInt(time[2]));
+    }
+
     public Date(String date, String time) {
         String[] dates = date.split("/");
         String[] times = time.split(":");
@@ -135,5 +149,9 @@ public class Date implements Comparable {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean sameDay(Date date) {
+        return getYear() == date.getYear() && getMonth() == date.getMonth() && getDay() == date.getDay();
     }
 }
