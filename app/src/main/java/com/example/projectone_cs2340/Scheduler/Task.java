@@ -51,10 +51,6 @@ public class Task {
         }
         return convertView;
     }
-    @Override
-    public Date getDate() {
-        return date;
-    }
 
     public void markCompleted() {
         completed = !completed;
