@@ -14,10 +14,6 @@ public class Lecture extends Event {
     private String instructor;
     private int colorValue;
 
-    public Lecture(String data) {
-        name = data.substring(0, data.indexOf(','));
-    }
-
     public Lecture(String location, String instructor, Date date) {
         this.location = location;
         this.instructor = instructor;
