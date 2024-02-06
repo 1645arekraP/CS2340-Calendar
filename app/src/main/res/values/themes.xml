@@ -3,6 +3,10 @@
     <style name="Base.Theme.ProjectOne_CS2340" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/secondColor</item>
+        <item name="colorAccent">@color/thirdColor</item>
+        <item name="colorSecondary">@color/fourthColor</item>
+        <item name="colorSurfaceContainer">@color/thirdColor</item>
     </style>
 
     <style name="Theme.ProjectOne_CS2340" parent="Base.Theme.ProjectOne_CS2340" />

@@ -1,48 +1,78 @@
 package com.example.projectone_cs2340.Scheduler;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
-public class Course extends Event {
-    private String location;
+import androidx.appcompat.app.AlertDialog;
+
+import com.example.projectone_cs2340.Adapters.TodoList;
+import com.example.projectone_cs2340.MainActivity;
+import com.example.projectone_cs2340.R;
+
+import java.util.ArrayList;
+
+import androidx.fragment.app.Fragment;
+
+public class Course {
+    private String courseName;
     private String instructor;
-    private int length;
     private Date date;
 
-    public Course(String name, Date date, String location, String instructor, int length) {
-        this.name = name;
+    private int colorValue;
+    public Course(String name, Date date, String instructor) {
+        this.courseName = name;
         this.date = date;
-        this.location = location;
         this.instructor = instructor;
-        this.length = length;
-    }
-    public Course(String data) {
-        String[] dataArr = data.split(",");
-        name = dataArr[0];
+        colorValue = Color.parseColor("#9fd3c7");
     }
 
-    @Override
-    public String toString() {
-        return "Lecture," + name + ',' + location + ',' + instructor + ',' + length;
+    public Course(String name)
+    {
+        this.courseName = name;
+        this.date = new Date();
+        this.instructor = "";
     }
-
-    @Override
-    public void createView(View view) {
-
+    public Course(String name, String instructor) {
+        this.courseName = name;
+        this.instructor = instructor;
     }
-
-    @Override
-    public Date getDate() {
-        return date;
-    }
-
-    @Override
-    public int getLayout() {
-        return 0;
-    }
-
-    @Override
     public View getView(View convertView, ViewGroup parent) {
-        return null;
+        TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
+        TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
+        TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
+        nameTextView.setText(courseName);
+        timeTextView.setText(date.toString());
+        nameTextView.setTextColor(colorValue);
+        instructorTextView.setText(instructor);
+        return convertView;
+    }
+
+    public int getLayout() {
+        return R.layout.course_item;
+    }
+    public void updateText(String name, Date date, String instructor) {
+        this.courseName = name;
+        this.date = date;
+        this.instructor = instructor;
+    }
+
+    public void updateText(String name, String instructor) {
+        this.courseName = name;
+        this.instructor = instructor;
+    }
+
+    public String getCourseName() {
+        return courseName.toLowerCase();
+    }
+    public Date getDate()
+    {
+        return date;
     }
 }

@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectone_cs2340.MainActivity;
 import com.example.projectone_cs2340.R;
+import com.example.projectone_cs2340.Scheduler.Course;
+import com.example.projectone_cs2340.Scheduler.Date;
 import com.example.projectone_cs2340.Scheduler.Event;
 import com.example.projectone_cs2340.Scheduler.Task;
 import com.example.projectone_cs2340.Scheduler.Task;
@@ -25,11 +27,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class TodoListAdapter extends BaseAdapter {
-    private ArrayList<Task> events;
+public class CourseListAdapter extends BaseAdapter {
+    private ArrayList<Course> events;
     private LayoutInflater layoutInflater;
 
-    public TodoListAdapter(Context context, ArrayList<Task> eventData) {
+    public CourseListAdapter(Context context, ArrayList<Course> eventData) {
         this.events = eventData;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -67,11 +69,8 @@ public class TodoListAdapter extends BaseAdapter {
                         if (item.getItemId() == R.id.deleteOption) {
                             events.remove(position);
                         }
-                        if (item.getItemId() == R.id.completeOption) {
-                            events.get(position).markCompleted();
-                        }
                         if (item.getItemId() == R.id.editOption) {
-                            todoAlertDialog(position, finalConvertView, parent);
+                            courseAlertDialog(position, finalConvertView, parent);
                         }
                         notifyDataSetChanged();
                         return false;
@@ -91,18 +90,20 @@ public class TodoListAdapter extends BaseAdapter {
     }
 
 
-    public void addEvent(Task event) {
-        events.add(event);
+    public void addEvent(Course course) {
+        events.add(course);
     }
 
     public void removeEvent(int position) {
         events.remove(position);
     }
 
-    private void todoAlertDialog(int position, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(getView(position, convertView, parent).getContext()).inflate(R.layout.task_popup, null);
-        EditText todoName = (EditText) view.findViewById(R.id.name);
-        EditText toDoDescription = (EditText) view.findViewById(R.id.description);
+    private void courseAlertDialog(int position, View convertView, ViewGroup parent) {
+        View view = LayoutInflater.from(getView(position, convertView, parent).getContext()).inflate(R.layout.course_popup, null);
+        EditText courseName = (EditText) view.findViewById(R.id.name);
+        EditText courseDate = (EditText) view.findViewById(R.id.date);
+        EditText courseTime = (EditText) view.findViewById(R.id.time);
+        EditText courseInstructor = (EditText) view.findViewById(R.id.instructor);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getView(position, convertView, parent).getContext());
         builder.setMessage("Enter event details here:")
@@ -110,9 +111,22 @@ public class TodoListAdapter extends BaseAdapter {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String title = todoName.getText().toString();
-                        String desc = toDoDescription.getText().toString();
-                        events.get(position).updateText(title, desc);
+                        String name = courseName.getText().toString();
+                        String instructor = courseInstructor.getText().toString();
+                        String dateStr = courseDate.getText().toString();
+                        String timeStr = courseTime.getText().toString();
+                        String[] dateData = dateStr.split("-");
+                        String[] timeData = timeStr.split(":");
+                        Date date = new Date(
+                                Integer.parseInt(dateData[0]),
+                                Integer.parseInt(dateData[1]),
+                                Integer.parseInt(dateData[2]),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
+                        events.get(position).updateText(name, date, instructor);
+                        //events.get(position).updateText(name, instructor);
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -120,6 +134,4 @@ public class TodoListAdapter extends BaseAdapter {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-
 }

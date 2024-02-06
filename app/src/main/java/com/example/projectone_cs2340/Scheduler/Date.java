@@ -1,9 +1,37 @@
 package com.example.projectone_cs2340.Scheduler;
 
+import java.util.Set;
+
 public class Date implements Comparable {
     private long data = 0;
 
     public Date() {}
+
+    public Date(String data){
+        String[] halves = data.split("T");
+        String[] date = halves[0].split("-");
+        String[] time = halves[1].split(":");
+
+        setYear(Integer.parseInt(date[0]));
+        setMonth(Integer.parseInt(date[1]));
+        setDay(Integer.parseInt(date[2]));
+
+        setHour(Integer.parseInt(time[0]));
+        setMinutes(Integer.parseInt(time[1]));
+        setSeconds(Integer.parseInt(time[2]));
+    }
+
+    public Date(String date, String time) {
+        String[] dates = date.split("/");
+        String[] times = time.split(":");
+
+        setDay(Integer.parseInt(dates[1]));
+        setMonth(Integer.parseInt(dates[0]));
+        setYear(Integer.parseInt(dates[2]));
+        setHour(Integer.parseInt(times[0]));
+        setMinutes(Integer.parseInt(times[1]));
+        setSeconds(Integer.parseInt(times[2]));
+    }
     public Date(int year, int month, int day, int hour, int minutes, int seconds) {
         setYear(year);
         setMonth(month);
@@ -109,7 +137,7 @@ public class Date implements Comparable {
 
     @Override
     public String toString() {
-        return String.format("%d-%02d-%02dT%02d:%02d:%02d", getYear(), getMonth(), getDay(), getHour(), getMinutes(), getSeconds());
+        return String.format("%d-%02d-%02d %02d:%02d:%02d", getYear(), getMonth(), getDay(), getHour(), getMinutes(), getSeconds());
     }
 
     /*

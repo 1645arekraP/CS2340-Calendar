@@ -7,29 +7,9 @@ import android.widget.TextView;
 
 import com.example.projectone_cs2340.R;
 
-import java.sql.Time;
-
 public class Lecture extends Event {
-    private String location;
-    private String instructor;
-    private int colorValue;
-
-    public Lecture(String location, String instructor, Date date) {
-        this.location = location;
-        this.instructor = instructor;
-        this.date = date;
-        //this.date = date;
-        colorValue = Color.parseColor("#ff6961");
-    }
-
-    @Override
-    public void createView(View view) {
-
-    }
-
-    @Override
-    public int getLayout() {
-        return R.layout.lecture_item;
+    public Lecture(String name, String description, Date date, Course c) {
+        super(name, date, Color.parseColor("#498eb9"), description, c,"Lecture");
     }
 
     @Override
@@ -37,24 +17,16 @@ public class Lecture extends Event {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
         TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
-        nameTextView.setText("Lecture: " + instructor);
-        instructorTextView.setText(location);
+        nameTextView.setText(name + "\nType: " + type + "\nCourse: " + course.getCourseName());
+        instructorTextView.setText(description);
         timeTextView.setText(date.toString());
         nameTextView.setTextColor(colorValue);
         return convertView;
     }
 
-    @Override
-    public Date getDate() {
-        return date;
-    }
-
-    public void promptAlert() {
-
-    }
-
-    @Override
-    public String toString() {
-        return "Lecture," + name + ',' + date.toString() + ',' + location;
+    public void updateText(String name, String instructor, Date date) {
+        this.name = name;
+        this.description = instructor;
+        this.date = date;
     }
 }

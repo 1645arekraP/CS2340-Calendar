@@ -8,23 +8,9 @@ import android.widget.TextView;
 import com.example.projectone_cs2340.R;
 
 public class Assignment extends Event {
-    private String lecture;
-    private int colorValue;
 
-    public Assignment(String name, String lecture, Date date) {
-        this.name = name;
-        this.date = date;
-        this.lecture = lecture;
-        colorValue = Color.parseColor("#77dd77");
-    }
-    @Override
-    public void createView(View view) {
-
-    }
-
-    @Override
-    public int getLayout() {
-        return R.layout.lecture_item;
+    public Assignment(String name, String description, Date date, Course c) {
+        super(name, date, Color.parseColor("#028090"), description, c, "Assignment");
     }
 
     @Override
@@ -32,15 +18,10 @@ public class Assignment extends Event {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name);
         TextView instructorTextView = (TextView) convertView.findViewById(R.id.instructor);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
-        nameTextView.setText("Assignment: " + name);
-        instructorTextView.setText(date.toString());
-        timeTextView.setText(lecture);
+        nameTextView.setText(name + "\nType: " + type + "\nCourse: " + course.getCourseName());
+        instructorTextView.setText(description);
+        timeTextView.setText(date.toString());
         nameTextView.setTextColor(colorValue);
         return convertView;
-    }
-
-    @Override
-    public Date getDate() {
-        return date;
     }
 }
