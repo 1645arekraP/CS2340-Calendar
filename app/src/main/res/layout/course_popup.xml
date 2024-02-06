@@ -13,18 +13,19 @@
         android:hint="Course Name" />
 
     <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Date: yyyy-mm-dd"
+        android:inputType="date" />
+
+    <EditText
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="Time: hh:mm:ss"
         android:inputType="time" />
 
-    <EditText
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Date: mm/dd/yyyy"
-        android:inputType="date" />
 
     <EditText
         android:id="@+id/instructor"

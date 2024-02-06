@@ -54,6 +54,6 @@ public abstract class Event {
 
     public String getCourseName()
     {
-        return course.getCourseName();
+        return course.getCourseName().toLowerCase();
     }
 }

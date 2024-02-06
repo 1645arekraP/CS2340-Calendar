@@ -65,6 +65,6 @@ public class Task {
     }
 
     public String getStringTitle() {
-        return name;
+        return name.toLowerCase();
     }
 }

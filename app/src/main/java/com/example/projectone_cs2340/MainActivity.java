@@ -36,6 +36,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     List<Event> events;
@@ -158,18 +159,23 @@ public class MainActivity extends AppCompatActivity {
                     todoList.sortByNameASC();
                     eventsList.sortByNameASC();
                     courseList.sortByNameASC();
+                    Toast.makeText(MainActivity.this, "All tabs have been sorted", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nameDESCOption) {
                     todoList.sortByNameDESC();
                     eventsList.sortByNameDESC();
                     courseList.sortByNameDESC();
+                    Toast.makeText(MainActivity.this, "All tabs have been sorted", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.dateASCOption) {
                     eventsList.sortByDateASC();
                     courseList.sortByDateASC();
+                    Toast.makeText(MainActivity.this, "The Courses and Events have been sorted", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.dateDESCOption) {
                     eventsList.sortByDateDESC();
                     courseList.sortByDateDESC();
+                    Toast.makeText(MainActivity.this, "The Courses and Events have been sorted", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.classType) {
                     eventsList.sortByType();
+                    Toast.makeText(MainActivity.this, "The Events have been sorted", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -234,8 +240,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String name = eventName.getText().toString();
                         String description = eventDescription.getText().toString();
-                        //String date = eventDate.getText().toString();
-                        //String time = eventTime.getText().toString();
                         String courseName = eventCourse.getText().toString();
 
                         String dateStr = eventDate.getText().toString();
@@ -286,11 +290,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = courseName.getText().toString();
-                        String date = courseDate.getText().toString();
-                        String time = courseTime.getText().toString();
                         String instructor = courseInstructor.getText().toString();
-                        courseList.addToList(new Course(name, new Date(date, time), instructor));
-                        //courseList.addToList(new Course(name, instructor));
+
+                        String dateStr = courseDate.getText().toString();
+                        String timeStr = courseTime.getText().toString();
+                        String[] dateData = dateStr.split("-");
+                        String[] timeData = timeStr.split(":");
+                        Date date = new Date(
+                                Integer.parseInt(dateData[0]),
+                                Integer.parseInt(dateData[1]),
+                                Integer.parseInt(dateData[2]),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
+                        courseList.addToList(new Course(name, date, instructor));
                     }
                 })
                 .setNegativeButton("Cancel", null)

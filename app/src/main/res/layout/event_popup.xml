@@ -10,7 +10,7 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Event Name" />
+        android:hint="Event Title" />
 
     <EditText
         android:id="@+id/description"
@@ -22,19 +22,20 @@
         android:id="@+id/course"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Course For Event" />
-
-    <EditText
-        android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Time: hh:mm:ss"
-        android:inputType="time" />
+        android:hint="Associated Course" />
 
     <EditText
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Date: mm/dd/yyyy"
+        android:hint="Due Date: yyyy-mm-dd"
         android:inputType="date" />
+
+    <EditText
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Due Time: hh:mm:ss"
+        android:inputType="time" />
+
 </LinearLayout>

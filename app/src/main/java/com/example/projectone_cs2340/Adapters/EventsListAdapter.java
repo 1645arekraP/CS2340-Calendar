@@ -102,12 +102,23 @@ public class EventsListAdapter extends BaseAdapter {
                     public void onClick(DialogInterface dialog, int which) {
                         String name = eventName.getText().toString();
                         String description = eventDescription.getText().toString();
-                        String date = eventDate.getText().toString();
-                        String time = eventTime.getText().toString();
                         String courseName = eventCourse.getText().toString();
 
+                        String dateStr = eventDate.getText().toString();
+                        String timeStr = eventTime.getText().toString();
+                        String[] dateData = dateStr.split("-");
+                        String[] timeData = timeStr.split(":");
+                        Date date = new Date(
+                                Integer.parseInt(dateData[0]),
+                                Integer.parseInt(dateData[1]),
+                                Integer.parseInt(dateData[2]),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
 
-                        events.get(position).updateText(name, description, new Date(date, time), new Course(courseName));
+
+                        events.get(position).updateText(name, description, date, new Course(courseName));
                     }
                 })
                 .setNegativeButton("Cancel", null)

@@ -69,7 +69,7 @@ public class Course {
     }
 
     public String getCourseName() {
-        return courseName;
+        return courseName.toLowerCase();
     }
     public Date getDate()
     {

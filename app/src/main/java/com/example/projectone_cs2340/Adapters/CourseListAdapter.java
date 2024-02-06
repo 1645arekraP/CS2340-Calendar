@@ -112,10 +112,20 @@ public class CourseListAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = courseName.getText().toString();
-                        String date = courseDate.getText().toString();
-                        String time = courseTime.getText().toString();
                         String instructor = courseInstructor.getText().toString();
-                        events.get(position).updateText(name, new Date(date, time), instructor);
+                        String dateStr = courseDate.getText().toString();
+                        String timeStr = courseTime.getText().toString();
+                        String[] dateData = dateStr.split("-");
+                        String[] timeData = timeStr.split(":");
+                        Date date = new Date(
+                                Integer.parseInt(dateData[0]),
+                                Integer.parseInt(dateData[1]),
+                                Integer.parseInt(dateData[2]),
+                                Integer.parseInt(timeData[0]),
+                                Integer.parseInt(timeData[1]),
+                                Integer.parseInt(timeData[2])
+                        );
+                        events.get(position).updateText(name, date, instructor);
                         //events.get(position).updateText(name, instructor);
                     }
                 })
