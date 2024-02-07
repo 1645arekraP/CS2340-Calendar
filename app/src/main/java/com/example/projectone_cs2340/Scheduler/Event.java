@@ -47,13 +47,24 @@ public abstract class Event {
         return date;
     }
 
-    public String getType()
-    {
-        return type;
-    }
+    public String getType() { return type; }
 
     public String getCourseName()
     {
         return course.getCourseName().toLowerCase();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+
+
+    public boolean equals(Object o) {
+        if (o == null || !getClass().equals(o.getClass())) {
+            return false;
+        }
+        Event obj = (Event)o;
+        return name.equals(obj.name) && date.equals(obj.date) && description.equals(obj.description) && colorValue == obj.colorValue && type.equals(obj.type) && getCourseName().equals(obj.getCourseName());
     }
 }

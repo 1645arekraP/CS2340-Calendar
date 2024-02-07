@@ -22,16 +22,20 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TodoList#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class EventsList extends Fragment {
     private ListView list;
     private View view;
     private List<Event> events;
+    private List<Event> allEvents;
     private EventsListAdapter adapter;
 
     public EventsList() {
+        events = new ArrayList<>();
+    }
+    public EventsList(List<Event> allEvents) {
+        this.allEvents = allEvents;
         events = new ArrayList<>();
     }
 
@@ -42,9 +46,7 @@ public class EventsList extends Fragment {
         view = inflater.inflate(R.layout.fragment_item_list, container, false);
         list = view.findViewById(R.id.itemList);
 
-        adapter = new EventsListAdapter(
-                view.getContext(),
-                events);
+        adapter = new EventsListAdapter(view.getContext(), events, allEvents);
         list.setAdapter(adapter);
 
         return view;

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         );
 
-        eventsList = new EventsList();
+        eventsList = new EventsList(events);
         todoList = new TodoList();
         courseList = new CourseList();
 

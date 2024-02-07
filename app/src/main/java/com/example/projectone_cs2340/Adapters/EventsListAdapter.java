@@ -29,11 +29,13 @@ import java.util.List;
 
 public class EventsListAdapter extends BaseAdapter {
     private List<Event> events;
+    private List<Event> allEvents;
     private LayoutInflater layoutInflater;
 
-    public EventsListAdapter(Context context, List<Event> eventData)
+    public EventsListAdapter(Context context, List<Event> eventData, List<Event> allEvents)
     {
         this.events = eventData;
+        this.allEvents = allEvents;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -68,7 +70,8 @@ public class EventsListAdapter extends BaseAdapter {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId() == R.id.deleteOption) {
-                            events.remove(position);
+                            Event temp = events.remove(position);
+                            allEvents.remove(temp);
                         }
                         if (item.getItemId() == R.id.editOption) {
                             todoAlertDialog(position, finalConvertView, parent);

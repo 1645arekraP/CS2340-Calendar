@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.example.projectone_cs2340.R;
 
 public class Exam extends Event {
-    private String location;
 
     public Exam(String name, String description, Date date, Course c) {
         super(name, date, Color.parseColor("#003459"), description, c, "Exam");
